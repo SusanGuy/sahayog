@@ -23,6 +23,7 @@ body {
   margin: 0;
   padding: 0;
   background: $bg-gray;
+  overflow: hidden;
 }
 
 .Home {
@@ -70,28 +71,48 @@ body {
 
 .Donation {
   .donation_image_div {
-    height: 40vh;
-    background-image: url(https://lh3.googleusercontent.com/proxy/XqAJERT47SBfPVVrP5NDqt-CWqWGICdMGtJ1_y7iXWOmxTS7ugxF2lp7ZSheX4Y7RKi1EqxmwUomutOWE5OY2lNzzSBcSx7UWVU5-WrNhDGh5w8NKyOWv2hA);
-    background-size: cover;
+    position: relative;
+    transition: ease-out all 0.5s;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .go-back {
+      display: flex;
+      position: absolute;
+      top: 3rem;
+      left: 3rem;
+      cursor: pointer;
+      color: white;
+      justify-content: space-evenly;
+      align-items: center;
+
+      span {
+        font-size: 1.4rem;
+        margin-left: 1rem;
+      }
+    }
   }
 
   .floating_div {
     margin-top: -5rem;
     background-color: white;
-    height: 66vh;
-    border-radius: 8% 8% 0 0;
+
+    border-radius: 4rem 4rem 0 0;
     position: relative;
     display: flex;
     flex-direction: column;
     padding: 1.5rem 3rem;
 
     .bookmark {
-      cursor: pointer;
       position: absolute;
       width: 6rem;
       height: 6rem;
       border-radius: 50%;
-
+      cursor: pointer;
       background-color: $primary-color;
       right: 5rem;
       top: -3rem;
@@ -100,12 +121,11 @@ body {
       justify-content: center;
     }
     .dash {
-      width: 3rem;
-      height: 0.5rem;
-      border-radius: 5rem;
-      background-color: $bg-gray;
-
+      padding-top: 0;
+      cursor: pointer;
       align-self: center;
+      transform: rotateX(180deg);
+      transition: transform 1s;
     }
     .types {
       color: $placeholder-gray;
@@ -158,9 +178,6 @@ body {
       .amount-title {
         display: flex;
         justify-content: space-between;
-
-        span:last-child {
-        }
       }
 
       .amount {
@@ -195,8 +212,8 @@ body {
 
         div,
         img {
-          width: 12%;
-          height: 65%;
+          width: 4rem;
+          height: 4rem;
 
           border-radius: 50%;
         }
@@ -220,7 +237,7 @@ body {
     }
 
     .content-title {
-      margin-top: 1rem;
+      margin-top: 1.4rem;
       display: flex;
       font-size: 1.3rem;
       justify-content: space-between;
@@ -228,13 +245,41 @@ body {
 
       .active {
         font-weight: bolder;
-        padding-bottom: 1rem;
+        padding-bottom: 0.5rem;
         border-bottom: 0.3rem solid;
+        transition: all 0.5s;
       }
 
       .grey-out {
         color: $grey-text-color;
       }
+    }
+    .main-content {
+      margin-top: 1.6rem;
+      overflow: scroll;
+    }
+  }
+  .bottom-buttons {
+    position: fixed;
+    bottom: 1rem;
+    padding: 0 3rem;
+    margin-top: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    .share {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: white;
+      box-shadow: 0.4rem 0.6rem 1rem rgb(219, 209, 209);
+      right: 5rem;
+      top: -3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
