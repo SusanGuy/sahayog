@@ -1,72 +1,240 @@
-$bg-gray: #D6D7DB;
+$bg-gray: #d6d7db;
 $padding-sides: 1rem;
-$placeholder-gray: #B2B1B4;
-$primary-color: #DE9F02;
-$accent-color: #CF955F;
+$placeholder-gray: #b2b1b4;
+$primary-color: #de9f02;
+$accent-color: #cf955f;
+$reddish-yellow: #ee821d;
+$grey-text-color: rgb(110, 109, 109);
 
 *,
 *::after,
 *::before,
 *::placeholder {
-    box-sizing: border-box;
-    line-height: 1.5rem;
-    letter-spacing: 0.05rem;
-
+  box-sizing: border-box;
+  line-height: 2.75rem;
+  letter-spacing: 0.03rem;
 }
 
 html {
-    font-size: 62.5%;
-
+  font-size: 62.5%;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: $bg-gray;
-
-
+  margin: 0;
+  padding: 0;
+  background: $bg-gray;
 }
 
 .Home {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem $padding-sides;
+
+  .nav {
+    display: flex;
+    justify-content: space-evenly;
+
+    .searchbar {
+      background: white;
+      border-radius: 3rem;
+      height: 5rem;
+      width: 80%;
+      display: flex;
+      box-shadow: 0.5rem 1rem 10rem black;
+      padding: 1rem;
+      justify-content: space-evenly;
+
+      input {
+        border: none;
+
+        &::placeholder {
+          color: $placeholder-gray;
+        }
+      }
+
+      * {
+        align-self: center;
+      }
+    }
+
+    img {
+      width: 5rem;
+      height: 5rem;
+
+      align-self: center;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+}
+
+.Donation {
+  .donation_image_div {
+    height: 40vh;
+    background-image: url(https://lh3.googleusercontent.com/proxy/XqAJERT47SBfPVVrP5NDqt-CWqWGICdMGtJ1_y7iXWOmxTS7ugxF2lp7ZSheX4Y7RKi1EqxmwUomutOWE5OY2lNzzSBcSx7UWVU5-WrNhDGh5w8NKyOWv2hA);
+    background-size: cover;
+  }
+
+  .floating_div {
+    margin-top: -5rem;
+    background-color: white;
+    height: 66vh;
+    border-radius: 8% 8% 0 0;
+    position: relative;
     display: flex;
     flex-direction: column;
-    margin: 2rem $padding-sides;
+    padding: 1.5rem 3rem;
 
-    .nav {
+    .bookmark {
+      cursor: pointer;
+      position: absolute;
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+
+      background-color: $primary-color;
+      right: 5rem;
+      top: -3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dash {
+      width: 3rem;
+      height: 0.5rem;
+      border-radius: 5rem;
+      background-color: $bg-gray;
+
+      align-self: center;
+    }
+    .types {
+      color: $placeholder-gray;
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: flex-start;
+
+      .type {
+        font-size: 0.7rem;
+        text-align: center;
+        border: 0.1rem solid $bg-gray;
+        border-radius: 5rem;
+        padding: 0.2rem 0.8rem;
+        margin-right: 1rem;
+        color: $grey-text-color;
+      }
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: bolder;
+    }
+    .campaign-info {
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+
+      .organizer,
+      .date {
+        color: $grey-text-color;
+      }
+
+      .organizer .name {
+        color: $reddish-yellow;
+        font-size: 1.3rem;
+      }
+
+      .date .day {
+        font-weight: bolder;
+        font-size: 1.3rem;
+      }
+    }
+
+    .amount-info {
+      margin-top: 1.3rem;
+      font-size: 1.1rem;
+      color: $grey-text-color;
+      display: flex;
+      flex-direction: column;
+
+      .amount-title {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
 
+        span:last-child {
+        }
+      }
 
-        .searchbar {
-            background: white;
-            border-radius: 3rem;
-            height: 5rem;
-            width: 80%;
-            display: flex;
-            box-shadow: 0.5rem 1rem 10rem black;
-            padding: 1rem;
-            justify-content: space-evenly;
+      .amount {
+        display: flex;
+        font-size: 1.2rem;
+        font-weight: bolder;
+        justify-content: space-between;
 
-            input {
-                border: none;
+        .total,
+        .target {
+          color: black;
+        }
 
-                &::placeholder {
-                    color: $placeholder-gray;
-                }
-            }
+        .total .percentage {
+          color: $grey-text-color;
+        }
+      }
+    }
 
-            * {
-                align-self: center;
-            }
+    .donors-list {
+      margin-top: 1.3rem;
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-size: 1.3rem;
+        font-weight: 200;
+      }
+
+      .donors {
+        display: flex;
+        margin-top: 1.1rem;
+
+        div,
+        img {
+          width: 12%;
+          height: 65%;
+
+          border-radius: 50%;
+        }
+
+        div {
+          background-color: $primary-color;
+          display: flex;
+          flex-direction: column;
+          color: white;
+          font-weight: bold;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.2rem;
         }
 
         img {
-            width: 5rem;
-            height: 5rem;
-
-            align-self: center;
-            object-fit: cover;
-            border-radius: 50%;
+          margin-right: 0.8rem;
+          object-fit: cover;
         }
+      }
     }
+
+    .content-title {
+      margin-top: 1rem;
+      display: flex;
+      font-size: 1.3rem;
+      justify-content: space-between;
+      cursor: pointer;
+
+      .active {
+        font-weight: bolder;
+        padding-bottom: 1rem;
+        border-bottom: 0.3rem solid;
+      }
+
+      .grey-out {
+        color: $grey-text-color;
+      }
+    }
+  }
 }

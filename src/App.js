@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.scss';
-import Home from './containers/Home';
+import React from "react";
+import "./App.scss";
+import Donation from "./containers/Donation";
 
 function App() {
-    return (
-        <div className='App'>
-            <Home />
-        </div>
-    );
+  return (
+    <div className="App">
+      <Donation />
+    </div>
+  );
 }
 
 export default App;
