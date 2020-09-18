@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Icons from 'react-feather';
 import Button from '../components/Button';
-
+import Slider from '../components/Slider';
 const ImageDiv = ({ height }) => {
     return (
         <div
@@ -64,9 +64,7 @@ const FloatingDiv = ({ top, setHeight }) => {
                     days left
                 </span>
             </div>
-            <div className='slider'>
-                <div className='slider-fill' style={{ width: `${Math.floor(h.raised * 100 / h.goal)}%` }} />
-            </div>
+            <Slider raised={330} goal={500} />
             <div className='amount-info'>
                 <div className='amount-title'>
                     <span>Raised so far</span>

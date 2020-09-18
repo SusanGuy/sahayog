@@ -292,3 +292,22 @@ body {
         }
     }
 }
+
+.slider {
+    width: 100%;
+    margin: 1rem 0;
+    height: 0.7rem;
+    border-radius: 2.5rem;
+    // padding: 0 1rem;
+    position: relative;
+    background-color: $placeholder-gray;
+
+    .slider-fill {
+        width: 50%;
+        background: $primary-color;
+        position: absolute;
+        height: 100%;
+        border-radius: 2.5rem;
+
+    }
+}
