@@ -10,285 +10,281 @@ $grey-text-color: rgb(110, 109, 109);
 *::after,
 *::before,
 *::placeholder {
-    box-sizing: border-box;
-    line-height: 2.75rem;
-    letter-spacing: 0.03rem;
+  box-sizing: border-box;
+  line-height: 2.75rem;
+  letter-spacing: 0.03rem;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: $bg-gray;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: $bg-gray;
+  overflow: hidden;
 }
 
 .Home {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem $padding-sides;
+
+  .nav {
     display: flex;
-    flex-direction: column;
-    margin: 2rem $padding-sides;
+    justify-content: space-evenly;
 
-    .nav {
-        display: flex;
-        justify-content: space-evenly;
+    .searchbar {
+      background: white;
+      border-radius: 3rem;
+      height: 5rem;
+      width: 80%;
+      display: flex;
+      box-shadow: 0.5rem 1rem 10rem black;
+      padding: 1rem;
+      justify-content: space-evenly;
 
-        .searchbar {
-            background: white;
-            border-radius: 3rem;
-            height: 5rem;
-            width: 80%;
-            display: flex;
-            box-shadow: 0.5rem 1rem 10rem black;
-            padding: 1rem;
-            justify-content: space-evenly;
+      input {
+        border: none;
 
-            input {
-                border: none;
-
-                &::placeholder {
-                    color: $placeholder-gray;
-                }
-            }
-
-            * {
-                align-self: center;
-            }
+        &::placeholder {
+          color: $placeholder-gray;
         }
+      }
 
-        img {
-            width: 5rem;
-            height: 5rem;
-
-            align-self: center;
-            object-fit: cover;
-            border-radius: 50%;
-        }
+      * {
+        align-self: center;
+      }
     }
+
+    img {
+      width: 5rem;
+      height: 5rem;
+
+      align-self: center;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
 }
 
 .Donation {
-    .donation_image_div {
-        position: relative;
-        transition: ease-out all 0.5s;
+  .donation_image_div {
+    position: relative;
+    transition: ease-out all 0.5s;
+    background-size: cover;
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .go-back {
+      display: flex;
+      position: absolute;
+      top: 3rem;
+      left: 3rem;
+      cursor: pointer;
+      color: white;
+      justify-content: space-evenly;
+      align-items: center;
 
-        .go-back {
-            display: flex;
-            position: absolute;
-            top: 3rem;
-            left: 3rem;
-            cursor: pointer;
-            color: white;
-            justify-content: space-evenly;
-            align-items: center;
+      span {
+        font-size: 1.4rem;
+        margin-left: 1rem;
+      }
+    }
+  }
 
-            span {
-                font-size: 1.4rem;
-                margin-left: 1rem;
-            }
-        }
+  .floating_div {
+    margin-top: -5rem;
+    background-color: white;
+
+    border-radius: 4rem 4rem 0 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 3rem;
+
+    .bookmark {
+      position: absolute;
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: $primary-color;
+      right: 5rem;
+      top: -3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .floating_div {
-        margin-top: -5rem;
-        background-color: white;
-
-        border-radius: 4rem 4rem 0 0;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        padding: 1.5rem 3rem;
-
-        .bookmark {
-            position: absolute;
-            width: 6rem;
-            height: 6rem;
-            border-radius: 50%;
-            cursor: pointer;
-            background-color: $primary-color;
-            right: 5rem;
-            top: -3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dash {
-            padding-top: 0;
-            cursor: pointer;
-            align-self: center;
-            transform: rotateX(180deg);
-            transition: transform 1s;
-        }
-
-        .types {
-            color: $placeholder-gray;
-            margin-top: 1.2rem;
-            display: flex;
-            justify-content: flex-start;
-
-            .type {
-                font-size: 0.7rem;
-                text-align: center;
-                border: 0.1rem solid $bg-gray;
-                border-radius: 5rem;
-                padding: 0.2rem 0.8rem;
-                margin-right: 1rem;
-                color: $grey-text-color;
-            }
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: bolder;
-        }
-
-        .campaign-info {
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-
-            .organizer,
-            .date {
-                color: $grey-text-color;
-            }
-
-            .organizer .name {
-                color: $reddish-yellow;
-                font-size: 1.3rem;
-            }
-
-            .date .day {
-                font-weight: bolder;
-                font-size: 1.3rem;
-            }
-        }
-
-        .amount-info {
-            margin-top: 1.3rem;
-            font-size: 1.1rem;
-            color: $grey-text-color;
-            display: flex;
-            flex-direction: column;
-
-            .amount-title {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .amount {
-                display: flex;
-                font-size: 1.2rem;
-                font-weight: bolder;
-                justify-content: space-between;
-
-                .total,
-                .target {
-                    color: black;
-                }
-
-                .total .percentage {
-                    color: $grey-text-color;
-                }
-            }
-        }
-
-        .donors-list {
-            margin-top: 1.3rem;
-            display: flex;
-            flex-direction: column;
-
-            .title {
-                font-size: 1.3rem;
-                font-weight: 200;
-            }
-
-            .donors {
-                display: flex;
-                margin-top: 1.1rem;
-
-                div,
-                img {
-                    width: 4rem;
-                    height: 4rem;
-
-                    border-radius: 50%;
-                }
-
-                div {
-                    background-color: $primary-color;
-                    display: flex;
-                    flex-direction: column;
-                    color: white;
-                    font-weight: bold;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 1.2rem;
-                }
-
-                img {
-                    margin-right: 0.8rem;
-                    object-fit: cover;
-                }
-            }
-        }
-
-        .content-title {
-            margin-top: 1.4rem;
-            display: flex;
-            font-size: 1.3rem;
-            justify-content: space-between;
-            cursor: pointer;
-
-            .active {
-                font-weight: bolder;
-                padding-bottom: 0.5rem;
-                border-bottom: 0.3rem solid;
-                transition: all 0.5s;
-            }
-
-            .grey-out {
-                color: $grey-text-color;
-            }
-        }
-
-        .main-content {
-            margin-top: 1.6rem;
-            max-height: 30rem;
-            overflow-y: scroll;
-        }
+    .dash {
+      cursor: pointer;
+      align-self: center;
+      transform: rotateX(180deg);
+      transition: transform 1s;
     }
 
-    .bottom-buttons {
-        position: fixed;
-        bottom: 1rem;
-        padding: 0 3rem;
-        margin-top: 1.4rem;
+    .types {
+      color: $placeholder-gray;
+      margin-top: 0.6rem;
+      display: flex;
+      justify-content: flex-start;
+
+      .type {
+        font-size: 0.7rem;
+        text-align: center;
+        border: 0.1rem solid $bg-gray;
+        border-radius: 5rem;
+        padding: 0.2rem 0.8rem;
+        margin-right: 1rem;
+        color: $grey-text-color;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: bolder;
+      margin: 0.6rem 0;
+    }
+
+    .campaign-info {
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+
+      .organizer,
+      .date {
+        color: $grey-text-color;
+      }
+
+      .organizer .name {
+        color: $reddish-yellow;
+        font-size: 1.3rem;
+      }
+
+      .date .day {
+        font-weight: bolder;
+        font-size: 1.3rem;
+      }
+    }
+
+    .amount-info {
+      margin-top: 0.7rem;
+      font-size: 1.1rem;
+      color: $grey-text-color;
+      display: flex;
+      flex-direction: column;
+
+      .amount-title {
         display: flex;
         justify-content: space-between;
-        align-self: center;
-        width: 100%;
+      }
 
-        .share {
-            width: 6rem;
-            height: 6rem;
-            border-radius: 50%;
-            cursor: pointer;
-            background-color: white;
-            box-shadow: 0.4rem 0.6rem 1rem rgb(219, 209, 209);
-            right: 5rem;
-            top: -3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+      .amount {
+        display: flex;
+        font-size: 1.2rem;
+        font-weight: bolder;
+        justify-content: space-between;
+
+        .total,
+        .target {
+          color: black;
         }
+
+        .total .percentage {
+          color: $grey-text-color;
+        }
+      }
     }
+
+    .donors-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-size: 1.3rem;
+        font-weight: 200;
+      }
+
+      .donors {
+        display: flex;
+        margin-top: 0.6rem;
+
+        div,
+        img {
+          width: 4rem;
+          height: 4rem;
+
+          border-radius: 50%;
+        }
+
+        div {
+          background-color: $reddish-yellow;
+          display: flex;
+          flex-direction: column;
+          color: white;
+          font-weight: bold;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.2rem;
+        }
+
+        img {
+          margin-right: 0.8rem;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .content-title {
+      margin-top: 1.1rem;
+      display: flex;
+      font-size: 1.3rem;
+      justify-content: space-between;
+      cursor: pointer;
+
+      .active {
+        font-weight: bolder;
+        padding-bottom: 0.5rem;
+        border-bottom: 0.3rem solid;
+        transition: all 0.5s;
+      }
+
+      .grey-out {
+        color: $grey-text-color;
+      }
+    }
+
+    .main-content {
+      margin-top: 0.7rem;
+      max-height: 30rem;
+      overflow-y: scroll;
+    }
+  }
+
+  .bottom-buttons {
+    position: fixed;
+    bottom: 1rem;
+    padding: 0 3rem;
+    margin-top: 1.4rem;
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+
+    .share {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: white;
+      box-shadow: 0.4rem 0.6rem 1rem rgb(219, 209, 209);
+      right: 5rem;
+      top: -3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+    }
+  }
 }
