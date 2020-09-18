@@ -72,8 +72,12 @@ body {
 .Donation {
   .donation_image_div {
     position: relative;
-    transition: ease-out all 0.5s;
-    background-size: cover;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
 
     .go-back {
       display: flex;
@@ -119,8 +123,6 @@ body {
     .dash {
       cursor: pointer;
       align-self: center;
-      transform: rotateX(180deg);
-      transition: transform 1s;
     }
 
     .types {
@@ -254,37 +256,22 @@ body {
         color: $grey-text-color;
       }
     }
-
-    .main-content {
-      margin-top: 0.7rem;
-      max-height: 30rem;
-      overflow-y: scroll;
-    }
   }
+}
 
-  .bottom-buttons {
-    position: fixed;
-    bottom: 1rem;
-    padding: 0 3rem;
-    margin-top: 1.4rem;
-    display: flex;
-    justify-content: center;
+.slider {
+  width: 100%;
+  margin: 1rem 0;
+  height: 0.7rem;
+  border-radius: 2.5rem;
+  position: relative;
+  background-color: $placeholder-gray;
 
-    width: 100%;
-
-    .share {
-      width: 6rem;
-      height: 6rem;
-      border-radius: 50%;
-      cursor: pointer;
-      background-color: white;
-      box-shadow: 0.4rem 0.6rem 1rem rgb(219, 209, 209);
-      right: 5rem;
-      top: -3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 1rem;
-    }
+  .slider-fill {
+    width: 50%;
+    background: $primary-color;
+    position: absolute;
+    height: 100%;
+    border-radius: 2.5rem;
   }
 }
