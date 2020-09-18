@@ -64,6 +64,9 @@ const FloatingDiv = ({ top, setHeight }) => {
                     days left
                 </span>
             </div>
+            <div className='slider'>
+                <div className='slider-fill' style={{ width: `${Math.floor(h.raised * 100 / h.goal)}%` }} />
+            </div>
             <div className='amount-info'>
                 <div className='amount-title'>
                     <span>Raised so far</span>
