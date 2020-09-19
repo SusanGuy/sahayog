@@ -95,9 +95,9 @@ $thumb-d: 1.5em;
 @mixin track() {
     box-sizing: border-box;
     border: none;
-    width: $track-w;
+    width: 100%;
     height: $track-h;
-    background: repeating-linear-gradient(90deg, transparent, transparent 1.2rem, #000 0.3rem, #000 1.5rem);
+    background: repeating-linear-gradient(90deg, transparent, transparent 1.2rem, lightgray 0.3rem, lightgray 1.5rem);
 }
 
 @mixin thumb() {
@@ -109,6 +109,7 @@ $thumb-d: 1.5em;
     height: 4rem;
     z-index: 4;
     background-color: white;
+
     border-radius: 4.5rem;
     box-shadow: 0rem 0rem 0.5rem -2px black;
 
@@ -152,11 +153,15 @@ $thumb-d: 1.5em;
     }
 
     &::-moz-range-thumb {
-        @include thumb
+        @include thumb;
+        background: url('slider-moz.png') no-repeat;
+        background-size: cover;
     }
 
     &::-ms-thumb {
         margin-top: 0;
+        background: url('slider.png') no-repeat;
+        background-size: cover;
         @include thumb
     }
 
