@@ -1,0 +1,86 @@
+$bg-gray: #d6d7db;
+$padding-sides: 1rem;
+$placeholder-gray: #b2b1b4;
+$primary-color: #fcdf17;
+$accent-color: #f7a117;
+$grey-text-color: rgb(34, 27, 27);
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+
+
+.payment {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 2rem;
+    height: 100vh;
+    background: white;
+
+    .amount {
+        margin: 2rem 1rem;
+        padding: 1rem 2rem 1rem 2rem;
+        display: flex;
+        background-color: #DCE3E6;
+        border-radius: 2rem;
+
+        justify-content: space-between;
+
+        span {
+            align-self: center;
+        }
+
+        .amount-right {
+            display: flex;
+
+            * {
+                align-self: center;
+                margin: 0.5rem;
+            }
+
+            .money {
+                font-weight: bolder;
+                font-size: 1.6rem;
+            }
+        }
+
+    }
+
+    .payment-methods {
+        padding: 1rem;
+        font-weight: 500;
+
+        .title {
+            margin: 1rem;
+
+        }
+
+        .methods {
+            display: flex;
+            flex-direction: column;
+
+            .method {
+
+                margin: 1rem 0rem;
+                padding: 1.5rem 2rem 1.5rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                background-color: #ECEFF1;
+                border-radius: 2rem;
+                border: 1px solid $placeholder-gray;
+
+                * {
+                    align-self: center;
+                }
+
+                &.active {
+                    border: 1px solid $primary-color;
+                    background-color: $primary-color;
+                }
+            }
+        }
+    }
+
+    .bottom {
+        margin-top: auto;
+        // display: flex;
+        // justify-content: flex-end;
+    }
+}
