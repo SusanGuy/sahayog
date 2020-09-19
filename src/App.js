@@ -1,10 +1,20 @@
 import React from 'react';
 import './App.scss';
-import Home from './containers/Home';
-import Donation from './containers/Donation';
+import Campaign from './containers/Campaign';
+
+import Donate from './containers/Donate';
+import Payment from './containers/Payment';
 
 function App() {
-    return <Donation />;
+    return (
+        <div className='App'>
+            {
+                // <Donate target={25000} />
+                // <Campaign />
+                <Payment />
+            }
+        </div>
+    );
 }
 
 export default App;
