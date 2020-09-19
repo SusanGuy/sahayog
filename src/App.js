@@ -6,7 +6,7 @@ import Donate from './containers/Donate';
 function App() {
     return (
         <div className='App'>
-            <Donate />
+            <Donate limit={50000} />
         </div>
     );
 }
