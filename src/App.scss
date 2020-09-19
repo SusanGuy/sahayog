@@ -15,6 +15,10 @@ $grey-text-color: rgb(34, 27, 27);
     letter-spacing: 0.03rem;
     font-family: 'Nunito',
         sans-serif;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 html {
@@ -63,7 +67,7 @@ body {
         }
 
         .searchbar {
-            background: rgb(233, 227, 227);
+            background: white;
             border-radius: 3rem;
             height: 5rem;
             width: 80%;
@@ -108,7 +112,7 @@ body {
 
         .more {
             font-weight: bolder;
-            color: $accent-text-color;
+            color: #000;
             font-style: to-upper-case($string: "");
         }
     }

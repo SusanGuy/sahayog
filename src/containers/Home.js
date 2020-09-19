@@ -26,6 +26,7 @@ const Home = () => {
     const [ scrolled, setScrolled ] = useState();
 
     useEffect((_) => {
+        document.body.style.overflow = 'scroll';
         const handleScroll = (_) => {
             if (window.pageYOffset > 1) {
                 setScrolled(true);
@@ -35,6 +36,7 @@ const Home = () => {
         };
         window.addEventListener('scroll', handleScroll);
         return (_) => {
+            document.body.style.overflow = 'hidden';
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
