@@ -68,6 +68,7 @@ const FloatingDiv = ({ top, setHeight }) => {
   const handleContentClick = (num) => {
     if (!top) {
       setHeight();
+      setActive(true);
     }
 
     setContent(num);
