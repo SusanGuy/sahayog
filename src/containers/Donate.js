@@ -7,10 +7,8 @@ import FlipNumbers from 'react-flip-numbers';
 // import CountUp, { useCountUp } from 'react-countup';
 const Donate = ({ limit }) => {
     const [ donation, setdonation ] = useState(0);
-    const [ previous, setprevious ] = useState(0);
 
     const handleDonation = ({ target }) => {
-        setprevious(donation);
         setdonation(target.value);
     };
 
@@ -76,7 +74,7 @@ const Donate = ({ limit }) => {
 
 const SliderWrapper = ({ donation, changeDonation }) => {
     return (
-        <div style={{ zIndex: 4 }}>
+        <div style={{ zIndex: 4, marginBottom: '5rem' }}>
             <input className='slider' type='range' min='0' max='100' onChange={changeDonation} value={donation} />
         </div>
     );

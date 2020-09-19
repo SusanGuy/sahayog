@@ -5,7 +5,7 @@ import Campaign from "./containers/Campaign";
 function App() {
   return (
     <div className="App">
-      <Campaign />
+      <Donate limit={50000} />
     </div>
   );
 }
