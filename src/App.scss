@@ -1,10 +1,9 @@
 $bg-gray: #d6d7db;
 $padding-sides: 1rem;
 $placeholder-gray: #b2b1b4;
-$primary-color: #de9f02;
-$accent-color: #cf955f;
-$reddish-yellow: #ee821d;
-$grey-text-color: rgb(110, 109, 109);
+$primary-color: #fcdf17;
+$accent-color: #f7a117;
+$grey-text-color: rgb(34, 27, 27);
 
 *,
 *::after,
@@ -70,29 +69,18 @@ body {
 }
 
 .Campaign {
+  display: flex;
+  flex-direction: column;
   .donation_image_div {
     position: relative;
+    background-size: cover;
+    width: 100%;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .go-back {
+    .header-button {
       display: flex;
       position: absolute;
       top: 3rem;
       left: 3rem;
-      cursor: pointer;
-      color: white;
-      justify-content: space-evenly;
-      align-items: center;
-
-      span {
-        font-size: 1.4rem;
-        margin-left: 1rem;
-      }
     }
   }
 
@@ -159,7 +147,7 @@ body {
       }
 
       .organizer .name {
-        color: $reddish-yellow;
+        color: $accent-color;
         font-size: 1.3rem;
       }
 
@@ -221,7 +209,7 @@ body {
         }
 
         div {
-          background-color: $reddish-yellow;
+          background-color: $accent-color;
           display: flex;
           flex-direction: column;
           color: white;
@@ -291,20 +279,165 @@ body {
   }
 }
 
-.slider {
-  width: 100%;
-  margin: 1rem 0;
-  height: 0.7rem;
-  border-radius: 2.5rem;
-  // padding: 0 1rem;
+.Donate {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 100vh;
   position: relative;
-  background-color: $placeholder-gray;
+  width: 100%;
+  z-index: 0;
 
-  .slider-fill {
-    width: 50%;
-    background: $primary-color;
+  .donation-fill {
     position: absolute;
     height: 100%;
-    border-radius: 2.5rem;
+    background: darken($primary-color, 5);
+    z-index: -1000;
+  }
+
+  .slider-before {
+    padding: 2rem 3rem 0 3rem;
+    color: $grey-text-color;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.4rem;
+      align-items: center;
+    }
+
+    img {
+      margin: 2rem 0;
+      width: 100%;
+      border-radius: 3.5rem;
+    }
+
+    .donate-title {
+      h1,
+      h2 {
+        color: $grey-text-color;
+        margin: 0;
+        font-size: 2rem;
+      }
+
+      h1 {
+        margin: 1rem 0;
+        font-size: 3rem;
+        font-weight: bolder;
+        color: black;
+        display: flex;
+        align-items: center;
+      }
+      h2 > span {
+        font-weight: bolder;
+        color: black;
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .button-container {
+    padding: 0 3rem;
+    height: 5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .slider-wrapper {
+    margin: auto 0;
+    .slider {
+      width: 100%;
+      z-index: 4;
+    }
+
+    .donation-detail {
+      padding: 0 1rem;
+      display: flex;
+      font-size: 1.3rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+$track-w: 12.5em;
+$track-h: 0.5em;
+$thumb-d: 1.5em;
+
+@mixin track() {
+  box-sizing: border-box;
+  border: none;
+  width: 100%;
+  height: $track-h;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 1.2rem,
+    lightgray 0.3rem,
+    lightgray 0.5rem
+  );
+}
+
+@mixin thumb() {
+  box-sizing: border-box;
+  color: black;
+  border: none;
+  width: 6rem;
+  height: 4rem;
+  z-index: 4;
+  background-color: white;
+
+  border-radius: 4.5rem;
+  box-shadow: 0rem 0rem 0.5rem -2px black;
+}
+
+[type="range"] {
+  &,
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  margin: 0;
+  padding: 0;
+  width: $track-w;
+  height: $thumb-d;
+  background: transparent;
+  font: 1em/1 arial, sans-serif;
+
+  &::-webkit-slider-runnable-track {
+    @include track;
+  }
+
+  &::-moz-range-track {
+    @include track;
+  }
+
+  &::-ms-track {
+    @include track;
+  }
+
+  &::-webkit-slider-thumb {
+    margin-top: -1.5rem;
+
+    background: url("slider.png") no-repeat;
+    background-size: cover;
+    @include thumb;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb;
+    background: url("slider-moz.png") no-repeat;
+    background-size: cover;
+  }
+
+  &::-ms-thumb {
+    margin-top: 0;
+    background: url("slider.png") no-repeat;
+    background-size: cover;
+    @include thumb;
+  }
+
+  &::-ms-tooltip {
+    display: none;
   }
 }

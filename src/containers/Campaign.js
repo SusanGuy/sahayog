@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import { Swipeable } from "react-swipeable";
 import { motion } from "framer-motion";
 import Slider from "../components/Slider";
+import BackButton from "../components/BackButton";
 
 const ImageDiv = ({ height, setTop, setActive }) => {
   const IMG_1 = `https://unsplash.it/342/249`;
@@ -33,6 +34,10 @@ const ImageDiv = ({ height, setTop, setActive }) => {
     setImageIdx(newIdx);
   };
 
+  const imageStyle = {
+    backgroundImage: `url(${IMAGES[imageIdx]})`,
+  };
+
   return (
     <Swipeable
       trackMouse
@@ -47,12 +52,11 @@ const ImageDiv = ({ height, setTop, setActive }) => {
           duration: 0.5,
         }}
         className="donation_image_div"
+        style={imageStyle}
       >
-        <div className="go-back">
-          <Icons.ChevronLeft />
-          <span>Back</span>
+        <div className="header-button">
+          <BackButton />
         </div>
-        <img src={IMAGES[imageIdx]} />
       </motion.div>
     </Swipeable>
   );
@@ -189,7 +193,7 @@ const ButtonContainer = () => (
     <div className="share">
       <Icons.Share />
     </div>
-    <Button width="23rem" text="Donate" />
+    <Button width="23rem">Donate</Button>
   </div>
 );
 

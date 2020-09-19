@@ -2,10 +2,12 @@ import React from "react";
 import "./App.scss";
 import Campaign from "./containers/Campaign";
 
+import Donate from "./containers/Donate";
+
 function App() {
   return (
     <div className="App">
-      <Donate limit={50000} />
+      <Campaign />
     </div>
   );
 }
