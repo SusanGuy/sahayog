@@ -1,21 +1,59 @@
 import React, { useState } from 'react';
 import * as Icons from 'react-feather';
 import Button from '../components/Button';
+import { Swipeable } from 'react-swipeable';
+import { motion } from 'framer-motion';
 import Slider from '../components/Slider';
-const ImageDiv = ({ height }) => {
+
+const ImageDiv = ({ height, setTop }) => {
+    const IMG_1 = `https://unsplash.it/342/249`;
+    const IMG_2 = `https://unsplash.it/342/250`;
+    const IMG_3 = `https://unsplash.it/342/251`;
+    const IMG_4 = `https://unsplash.it/342/252`;
+    const IMG_5 = `https://unsplash.it/342/253`;
+    const IMAGES = [ IMG_1, IMG_2, IMG_3, IMG_4, IMG_5 ];
+    const RIGHT = '-1';
+    const LEFT = '+1';
+
+    const [ imageIdx, setImageIdx ] = useState(0);
+
+    const onSwiped = (direction) => {
+        setTop();
+        const change = direction === RIGHT ? RIGHT : LEFT;
+        const adjustedIdx = imageIdx + Number(change);
+        let newIdx;
+        if (adjustedIdx >= IMAGES.length) {
+            newIdx = 0;
+        } else if (adjustedIdx < 0) {
+            newIdx = IMAGES.length - 1;
+        } else {
+            newIdx = adjustedIdx;
+        }
+        setImageIdx(newIdx);
+    };
+
     return (
-        <div
-            style={{
-                height
-            }}
-            className='donation_image_div'
+        <Swipeable
+            trackMouse
+            style={{ touchAction: 'none' }}
+            preventDefaultTouchmoveEvent
+            onSwipedLeft={() => onSwiped(LEFT)}
+            onSwipedRight={() => onSwiped(RIGHT)}
         >
-            <div className='go-back'>
-                <Icons.ChevronLeft />
-                <span>Back</span>
-            </div>
-            <img src='https://physicsworld.com/wp-content/uploads/2019/09/PWSep19Nemzer-frontis_HERO-1024x576.jpg' />
-        </div>
+            <motion.div
+                animate={{ height }}
+                transition={{
+                    duration: 0.5
+                }}
+                className='donation_image_div'
+            >
+                <div className='go-back'>
+                    <Icons.ChevronLeft />
+                    <span>Back</span>
+                </div>
+                <img src={IMAGES[imageIdx]} />
+            </motion.div>
+        </Swipeable>
     );
 };
 
@@ -34,22 +72,27 @@ const FloatingDiv = ({ top, setHeight }) => {
 
         setContent(num);
     };
+    const [ active, setActive ] = useState(false);
     return (
         <div className='floating_div'>
             <div className='bookmark'>
                 <Icons.Bookmark size='3rem' color='white' fill='white' />
             </div>
-            <div
-                style={{
-                    transform: `${!top ? 'rotateY(180deg)' : ''}`
+            <motion.div
+                animate={{
+                    rotate: active ? 180 : 0
+                }}
+                transition={{
+                    duration: 0.5
                 }}
                 onClick={() => {
                     setHeight();
+                    setActive(!active);
                 }}
                 className='dash'
             >
                 <Icons.ChevronUp />
-            </div>
+            </motion.div>
             <div className='types'>
                 <span className='type'>Medical</span>
                 <span className='type'>Emergency</span>
@@ -64,7 +107,7 @@ const FloatingDiv = ({ top, setHeight }) => {
                     days left
                 </span>
             </div>
-            <Slider raised={330} goal={500} />
+            <Slider goal={10000} raised={5000} />
             <div className='amount-info'>
                 <div className='amount-title'>
                     <span>Raised so far</span>
@@ -115,7 +158,7 @@ const FloatingDiv = ({ top, setHeight }) => {
                 Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
                 Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
                 Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-                Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum . Lorem Ipsum Lorem Ipsum
                 Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
                 Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
                 Lorem Ipsum Lorem Ipsum Lorem IpsumLorem IpsumLorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
@@ -137,7 +180,7 @@ const ButtonContainer = () => (
         <div className='share'>
             <Icons.Share />
         </div>
-        <Button />
+        <Button text='Donate' />
     </div>
 );
 
@@ -146,10 +189,18 @@ const Donation = () => {
     const handleHeightChange = () => {
         setTop(!top);
     };
-    const height = top ? '20vh' : '40vh';
+    const height = top ? '18vh' : '40vh';
     return (
         <div className='Donation'>
-            <ImageDiv height={height} />
+            <ImageDiv
+                height={height}
+                setTop={() => {
+                    if (top) {
+                        setTop(!top);
+                    }
+                    return;
+                }}
+            />
             <FloatingDiv top={top} setHeight={handleHeightChange} />
             <ButtonContainer />
         </div>

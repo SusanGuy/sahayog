@@ -1,5 +1,4 @@
 import React from 'react';
-
 const Slider = ({ raised, goal }) => {
     return (
         <div className='slider'>
