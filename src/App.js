@@ -10,9 +10,9 @@ function App() {
     <div className="App">
       {
         //<Donate target={25000} />
-        //<Campaign />
+        <Campaign />
         //<Payment />
-        <Home />
+        //<Home />
       }
     </div>
   );

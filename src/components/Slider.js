@@ -4,7 +4,7 @@ const Slider = ({ raised, goal }) => {
   return (
     <div
       style={{
-        height: window.innerHeight > 700 ? window.innerHeight * 0.01 : "3rem",
+        height: window.innerHeight * 0.01,
       }}
       className="filler"
     >
