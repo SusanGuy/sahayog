@@ -24,7 +24,7 @@ const hero = [
 ];
 
 const Home = () => {
-  const [scrolled, setScrolled] = useState();
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect((_) => {
     document.body.style.overflow = "scroll";
@@ -42,7 +42,6 @@ const Home = () => {
     };
   }, []);
 
-  console.log(scrolled);
   return (
     <div className="Home" onScroll={() => {}}>
       <Nav scroll={scrolled} />
