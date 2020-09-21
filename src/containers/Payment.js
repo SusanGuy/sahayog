@@ -7,7 +7,7 @@ const Payment = () => {
 
   const amount = 1000;
   return (
-    <div className="payment">
+    <div className="Payment">
       <BackButton color="rgb(34, 27, 27)" />
       <div className="amount">
         <span>Amount</span>

@@ -9,8 +9,8 @@ function App() {
   return (
     <div className="App">
       {
-        //<Donate target={25000} />
-        <Campaign />
+        <Donate target={5000} />
+        //<Campaign />
         //<Payment />
         //<Home />
       }

@@ -444,9 +444,24 @@ body {
       margin: 2rem 0;
       width: 100%;
       border-radius: 3.5rem;
+      object-fit: cover;
     }
+  }
 
+  .button-container {
+    margin-top: auto;
+    padding: 0 3rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .slider-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     .donate-title {
+      padding: 0 3rem 0 3rem;
+
       h1,
       h2 {
         color: $grey-text-color;
@@ -454,13 +469,19 @@ body {
         font-size: 2rem;
       }
 
-      h1 {
-        margin: 1rem 0;
-        font-size: 3rem;
-        font-weight: bolder;
-        color: black;
+      .donation-header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
+        margin: 1rem 0;
+
+        h1 {
+          font-size: 3rem;
+          font-weight: bolder;
+          color: black;
+          display: flex;
+          align-items: center;
+        }
       }
 
       h2 > span {
@@ -469,29 +490,62 @@ body {
         font-size: 2rem;
       }
     }
-  }
 
-  .button-container {
-    padding: 0 3rem;
-    height: 5rem;
-    margin-bottom: 1.5rem;
-    width: 100%;
-  }
+    .numpad-wrapper {
+      padding: 0 3rem 0 3rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .top-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-  .slider-wrapper {
-    margin: auto 0;
+        font-size: 3rem;
 
-    .slider {
-      width: 100%;
-      z-index: 4;
+        h2 {
+          margin: 0 auto;
+        }
+      }
+
+      .numpad {
+        margin: 2.5rem 0 2.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        span {
+          cursor: pointer;
+          font-size: 2.2rem;
+          padding: 3rem;
+          text-align: center;
+          flex: 1 0 33.33%;
+        }
+      }
     }
 
-    .donation-detail {
-      padding: 0 1rem;
+    .slider {
+      margin: auto 0;
       display: flex;
-      font-size: 1.3rem;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+
+      input {
+        width: 100%;
+        z-index: 4;
+        cursor: pointer;
+        margin-top: 1.4rem;
+      }
+
+      .donation-detail {
+        margin-top: 1.2rem;
+        padding: 0 1rem;
+        display: flex;
+        font-size: 1.3rem;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
   }
 }
@@ -578,7 +632,7 @@ $thumb-d: 1.5em;
   }
 }
 
-.payment {
+.Payment {
   display: flex;
   flex-direction: column;
   padding: 2rem 2rem;
