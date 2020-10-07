@@ -86,20 +86,20 @@ const Donate = ({ target }) => {
 };
 
 const NumpadWrapper = ({ donation, changeDonation, slider, setSlider }) => {
-  const nums = {
-    1: "1",
-    2: "2",
-    3: "3",
-    4: "4",
-    5: "5",
-    6: "6",
-    7: "7",
-    8: "8",
-    9: "9",
-    "00": "00",
-    0: "0",
-    "*": <Icons.ChevronLeft />,
-  };
+  const nums = [
+    { key: 1, value: "1" },
+    { key: 2, value: "2" },
+    { key: 3, value: "3" },
+    { key: 4, value: "4" },
+    { key: 5, value: "5" },
+    { key: 6, value: "6" },
+    { key: 7, value: "7" },
+    { key: 8, value: "8" },
+    { key: 9, value: "9" },
+    { key: "00", value: "00" },
+    { key: 0, value: 0 },
+    { key: "*", value: <Icons.ChevronLeft /> },
+  ];
 
   const handleDonation = (key) => {
     let newDonation = donation.toString();
@@ -121,7 +121,7 @@ const NumpadWrapper = ({ donation, changeDonation, slider, setSlider }) => {
         <Switcher slider={slider} setSlider={setSlider} />
       </div>
       <div className="numpad">
-        {Object.keys(nums).map((key) => (
+        {nums.map(({ key, value }) => (
           <span
             key={key}
             onClick={() => handleDonation(key)}
@@ -129,7 +129,7 @@ const NumpadWrapper = ({ donation, changeDonation, slider, setSlider }) => {
               padding: window.innerHeight * 0.02,
             }}
           >
-            {nums[key]}
+            {value}
           </span>
         ))}
       </div>

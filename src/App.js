@@ -9,10 +9,10 @@ function App() {
   return (
     <div className="App">
       {
-        <Donate target={5000} />
-        //<Campaign />
+        //<Donate target={5000} />
+        // <Campaign />
         //<Payment />
-        //<Home />
+        <Home />
       }
     </div>
   );
