@@ -1,77 +1,75 @@
 $accent-color: #f7a117;
 
 .hamburger-menu {
+  position: fixed;
+  padding: 2rem;
+  height: 100vh;
+  width: 75%;
+  background-color: white;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s ease-in;
+  overflow-y: hidden;
+
+  .hamburger-cross {
     position: absolute;
+    right: 1rem;
 
-    padding: 2rem;
-    height: 100vh;
-    width: 75%;
-    background-color: white;
-    z-index: 10001;
+    top: 1rem;
+  }
+
+  .hamburger-top {
+    margin-top: 2rem;
     display: flex;
+
+    .img-wrapper {
+      margin-right: 1rem;
+
+      img {
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+
+        object-fit: cover;
+      }
+    }
+
+    span {
+      align-self: center;
+      font-size: 1.6rem;
+      font-weight: bolder;
+    }
+  }
+
+  .hamburger-items {
+    height: 100%;
+    display: flex;
+    width: 100%;
     flex-direction: column;
-    transition: transform 0.5s ease-in;
-    overflow-y: hidden;
+    margin: 2rem 0;
+    font-size: 2rem;
+    // justify-content: space-around;
 
-    .hamburger-cross {
-        position: absolute;
-        right: 1rem;
-        // color: $accent-color;
-        top: 1rem;
-    }
+    .hamburger-item {
+      display: flex;
+      margin-top: 20%;
 
-    .hamburger-top {
-        margin-top: 2rem;
+      &.active {
+        color: $accent-color;
+      }
+
+      a {
         display: flex;
 
-        .img-wrapper {
-            margin-right: 1rem;
-
-            img {
-                height: 7rem;
-                width: 7rem;
-                border-radius: 50%;
-
-                object-fit: cover;
-            }
+        * {
+          align-self: center;
         }
+      }
 
-        span {
-            align-self: center;
-            font-size: 1.6rem;
-            font-weight: bolder;
-        }
+      span {
+        margin-left: 2rem;
+      }
     }
-
-    .hamburger-items {
-        height: 100%;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        margin: 2rem 0;
-        font-size: 2rem;
-        // justify-content: space-around;
-
-        .hamburger-item {
-            display: flex;
-            margin-top: 20%;
-
-            &.active {
-                color: $accent-color;
-            }
-
-            a {
-                display: flex;
-
-                * {
-                    align-self: center;
-                }
-            }
-
-            span {
-                margin-left: 2rem;
-            }
-        }
-    }
-
+  }
 }
