@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as Icons from "react-feather";
+import AuthButton from "./AuthButton";
 import "./Hamburger.scss";
 import { Link } from "react-router-dom";
 const menus = {
@@ -14,7 +15,19 @@ const menus = {
     title: "My Fundraisers",
     link: "/my-fundraisers",
   },
-  LOGOUT: { icon: <Icons.Power />, title: "Log Out", link: "/logout" },
+  FAVORITE: {
+    icon: <Icons.Star />,
+    title: "My Favorites",
+    link: "/my-favorites",
+  },
+
+  PROFILE: {
+    icon: <Icons.Headphones />,
+    title: "My Profile",
+    link: "/my-profile",
+  },
+
+  //LOGOUT: { icon: <Icons.Power />, title: "Log Out", link: "/logout" },
 };
 const Hamburger = ({ hamburger, handleBurger, route = menus.HOME.title }) => {
   const [active, setactive] = useState(route);
@@ -56,6 +69,9 @@ const Hamburger = ({ hamburger, handleBurger, route = menus.HOME.title }) => {
             </div>
           );
         })}
+        <div className="authentication-status">
+          <AuthButton>Log Out</AuthButton>
+        </div>
       </div>
     </div>
   );
