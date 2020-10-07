@@ -3,6 +3,7 @@ import Nav from "../components/Nav";
 import Slider from "../components/Slider";
 import * as Icons from "react-feather";
 import Hamburger from "../components/Hamburger";
+import Button from "../components/Button";
 
 const hero = [
   {
@@ -141,6 +142,9 @@ const Home = ({
           ))}
         </div>
       </main>
+      <Button position="fixed" bottom="1rem" width="60%" right="1rem">
+        <div className="start-button">Start Campaign</div>
+      </Button>
     </div>
   );
 };
