@@ -26,11 +26,10 @@ const menus = {
     title: "My Profile",
     link: "/my-profile",
   },
-
-  //LOGOUT: { icon: <Icons.Power />, title: "Log Out", link: "/logout" },
 };
-const Hamburger = ({ hamburger, handleBurger, route = menus.HOME.title }) => {
+const Hamburger = ({ hamburger, handleBurger, route }) => {
   const [active, setactive] = useState(route);
+  console.log(active);
   return (
     <div
       className="hamburger-menu"
@@ -58,7 +57,7 @@ const Hamburger = ({ hamburger, handleBurger, route = menus.HOME.title }) => {
               key={link}
               onClick={() => {
                 handleBurger(false);
-                setactive(title);
+                setactive(link);
               }}
               className={`hamburger-item ${active === link ? "active" : ""}`}
             >
