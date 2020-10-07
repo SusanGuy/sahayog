@@ -1,0 +1,64 @@
+$bg-white: #fff;
+$bg-black: #000;
+$font-size: 2rem;
+
+html {
+  height: 100vh;
+}
+body {
+  background-color: $bg-white;
+}
+h2 {
+  margin-bottom: 1rem;
+}
+
+.trouble {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+span {
+  color: #7c858d;
+  font-size: 2rem;
+  //   margin-left: 3rem;
+}
+
+#welcomeTag {
+  margin: 10rem 0 10vh 2rem;
+  font-size: 2rem;
+}
+.eye {
+  margin-left: -40px;
+  cursor: pointer;
+}
+.inputBox {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #d3d5d6;
+  margin: 0 1rem 3vh 1rem;
+  padding: 1rem;
+  width: 90vw;
+  font-size: $font-size;
+}
+
+.inputBox:focus {
+  border-bottom: 1px solid #205998;
+}
+// .buttonArea {
+//   margin-left: 2rem;
+// }
+.rememberMeArea {
+  //   text-align: center;
+  color: #666;
+  font-size: 2rem;
+  margin-bottom: 3vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 5rem;
+  column-gap: 10rem;
+}
+input[type="checkbox"] {
+  transform: scale(1.5);
+}
