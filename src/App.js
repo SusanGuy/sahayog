@@ -17,6 +17,7 @@ function App() {
         <Route exact path="/my-donations" component={Campaign} />
         <Route exact path="/my-fundraisers" component={Home} />
         <Route exact path="/payment" component={Payment} />
+        {/* changes */}
         <Route
           exact
           path="/logout"
