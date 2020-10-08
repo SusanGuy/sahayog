@@ -40,7 +40,7 @@ const Auth = ({
       <div className="auth-input-wrapper">
         {!isLogin && (
           <AuthInput
-            onChange={(e) => handleChange}
+            onChange={(e) => handleChange(e)}
             type="text"
             name="name"
             value={name}
@@ -48,14 +48,14 @@ const Auth = ({
           />
         )}
         <AuthInput
-          onChange={(e) => handleChange}
+          onChange={(e) => handleChange(e)}
           type="email"
           name="email"
           value={email}
           label="Email ID"
         />
         <AuthInput
-          onChange={(e) => handleChange}
+          onChange={(e) => handleChange(e)}
           type="password"
           value={password}
           name="password"
