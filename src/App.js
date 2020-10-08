@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.scss";
-import Login from "./containers/Login";
+import Auth from "./containers/Auth";
 import Campaign from "./containers/Campaign";
 import Donation from "./containers/Donation";
 import Donate from "./containers/Donate";
@@ -12,7 +12,8 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/login" component={Auth} />
+        <Route exact path="/signup" component={Auth} />
         <Route exact path="/my-donations" component={Campaign} />
         <Route exact path="/my-fundraisers" component={Home} />
         <Route

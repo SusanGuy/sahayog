@@ -1,8 +1,9 @@
 $bg-gray: #d6d7db;
-$padding-sides: 1rem;
+
 $placeholder-gray: #b2b1b4;
 $primary-color: #fcdf17;
 $accent-color: #f7a117;
+$padding-sides: 1rem;
 $grey-text-color: rgb(34, 27, 27);
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
 
@@ -713,5 +714,83 @@ $thumb-d: 1.5em;
 
   .bottom {
     margin-top: auto;
+  }
+}
+
+.Auth {
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  position: relative;
+  padding: 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .auth-main-button {
+    border: 0;
+    background: linear-gradient(to right, $accent-color, $primary-color);
+    padding: 1rem;
+    font-size: 1.8rem;
+    color: rgb(255, 255, 255);
+    border-radius: 1.2rem;
+  }
+
+  .main-header {
+    margin: 3rem 0;
+    h1,
+    h2 {
+      margin: 0;
+      font-weight: bolder;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      color: $placeholder-gray;
+    }
+  }
+
+  .auth-input-wrapper {
+    margin-top: 25%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .forgot {
+      margin-left: auto;
+    }
+  }
+
+  .auth-buttons {
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+
+    button:nth-child(2) {
+      background: $bg-gray;
+      color: #4267b2;
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      margin-top: 1rem;
+    }
+  }
+
+  .auth-bottom-status {
+    margin: auto auto 3rem auto;
+    font-size: 1.5rem;
+
+    a {
+      color: $accent-color;
+      cursor: pointer;
+    }
   }
 }
