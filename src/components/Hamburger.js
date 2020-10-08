@@ -26,8 +26,6 @@ const menus = {
     title: "My Profile",
     link: "/my-profile",
   },
-
-  //LOGOUT: { icon: <Icons.Power />, title: "Log Out", link: "/logout" },
 };
 const Hamburger = ({ reference, hamburger, handleBurger, route }) => {
   const [active, setactive] = useState(route);
@@ -85,7 +83,7 @@ const Hamburger = ({ reference, hamburger, handleBurger, route }) => {
               key={link}
               onClick={() => {
                 handleBurger(false);
-                setactive(title);
+                setactive(link);
               }}
               className={`hamburger-item ${active === link ? "active" : ""}`}
             >
