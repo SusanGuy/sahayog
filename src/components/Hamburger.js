@@ -51,9 +51,10 @@ const Hamburger = ({ hamburger, handleBurger, route }) => {
 
   return (
     <motion.div
-      animate={{ x: 0 }}
-      initial={{ x: -100 }}
-      exit={{ x: -100 }}
+      animate={{ width: "100%" }}
+      initial={{ width: 0 }}
+      exit={{ width: 0 }}
+      transition={{ duration: 0.3 }}
       className="hamburger-container"
     >
       <div className="hamburger-menu">
@@ -66,10 +67,10 @@ const Hamburger = ({ hamburger, handleBurger, route }) => {
           <Icons.X />
         </div>
         <motion.div
-          initial={{ y: -100 }}
-          exit={{ y: -100 }}
           animate={{ y: 0 }}
-          transition={{ ease: "easeOut", duration: 0.4 }}
+          initial={{ y: -2000 }}
+          transition={{ duration: 0.4 }}
+          exit={{ y: -2000 }}
           className="hamburger-top"
         >
           <div className="img-wrapper">
@@ -78,10 +79,10 @@ const Hamburger = ({ hamburger, handleBurger, route }) => {
           <span>Sushant Baskota</span>
         </motion.div>
         <motion.div
-          initial={{ y: -200 }}
-          exit={{ y: -200 }}
           animate={{ y: 0 }}
-          transition={{ ease: "easeOut", duration: 0.6 }}
+          initial={{ y: 2000 }}
+          exit={{ y: 2000 }}
+          transition={{ duration: 0.5 }}
           className="hamburger-items"
         >
           {Object.keys(menus).map((key) => {
