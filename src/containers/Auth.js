@@ -61,7 +61,7 @@ const Auth = ({
           name="password"
           label="Password"
         />
-        <span className="forgot">Forgot Password?</span>
+        {isLogin && <span className="forgot">Forgot Password?</span>}
       </div>
 
       <div className="auth-buttons">

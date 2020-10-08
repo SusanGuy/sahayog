@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Nav from "../components/Nav";
 import Slider from "../components/Slider";
 import * as Icons from "react-feather";
@@ -33,19 +33,12 @@ const Home = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [hamburger, sethamburger] = useState(false);
+
   const node = useRef();
-  const handleClick = useCallback(
-    (e) => {
-      if (node.current.contains(e.target)) {
-        sethamburger(false);
-      }
-    },
-    [hamburger]
-  );
   useEffect(
     (_) => {
       document.body.style.overflow = !hamburger && "scroll";
-      document.addEventListener("click", handleClick);
+
       const handleScroll = (_) => {
         if (window.pageYOffset > 1) {
           setScrolled(true);
@@ -57,7 +50,6 @@ const Home = ({
       return (_) => {
         document.body.style.overflow = "hidden";
         window.removeEventListener("scroll", handleScroll);
-        document.removeEventListener("click", handleClick);
       };
     },
     [hamburger]
@@ -67,6 +59,7 @@ const Home = ({
     <div className="Home">
       {
         <Hamburger
+          reference={node}
           hamburger={hamburger}
           handleBurger={sethamburger}
           route={pathname}
@@ -76,11 +69,11 @@ const Home = ({
         <Nav
           scroll={scrolled}
           hamburger={() => {
-            sethamburger(!hamburger);
+            sethamburger(true);
           }}
         />
       }
-      <main id="thisMain" ref={node}>
+      <main ref={node}>
         <div className="headers" style={{ marginTop: scrolled ? "10rem" : "" }}>
           <div className="title">Trending</div>
           <div className="more">MORE</div>

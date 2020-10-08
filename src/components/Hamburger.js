@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import * as Icons from "react-feather";
 import AuthButton from "./AuthButton";
 import "./Hamburger.scss";
@@ -29,17 +29,44 @@ const menus = {
 
   //LOGOUT: { icon: <Icons.Power />, title: "Log Out", link: "/logout" },
 };
-const Hamburger = ({ hamburger, handleBurger, route = menus.HOME.title }) => {
+const Hamburger = ({ reference, hamburger, handleBurger, route }) => {
   const [active, setactive] = useState(route);
+
+  const handleClick = useCallback(
+    (e) => {
+      if (!reference.current.contains(e.target)) {
+        return;
+      }
+      console.log("ayo");
+      handleBurger(false);
+    },
+    [handleBurger, reference]
+  );
+  useEffect(
+    (_) => {
+      window.addEventListener("click", handleClick);
+      return () => {
+        document.removeEventListener("click", handleClick);
+      };
+    },
+    [handleClick]
+  );
+
   return (
     <div
+      style={
+        hamburger
+          ? {}
+          : {
+              transform: "translateX(-125%)",
+            }
+      }
       className="hamburger-menu"
-      style={hamburger ? {} : { transform: "translateX(-125%)" }}
     >
       <div
         className="hamburger-cross"
         onClick={() => {
-          handleBurger(!hamburger);
+          handleBurger(false);
         }}
       >
         <Icons.X />
