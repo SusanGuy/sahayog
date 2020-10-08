@@ -35,7 +35,7 @@ const Hamburger = ({ reference, hamburger, handleBurger, route }) => {
       if (!reference.current.contains(e.target)) {
         return;
       }
-      console.log("ayo");
+
       handleBurger(false);
     },
     [handleBurger, reference]

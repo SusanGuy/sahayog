@@ -181,7 +181,7 @@ const Campaign = () => {
   const handleHeightChange = () => {
     setTop(!top);
   };
-  const height = top ? "18vh" : "40vh";
+  const height = top ? "16vh" : "40vh";
   return (
     <div className="Campaign">
       <ImageDiv
