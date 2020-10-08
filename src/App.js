@@ -16,6 +16,7 @@ function App() {
         <Route exact path="/signup" component={Auth} />
         <Route exact path="/my-donations" component={Campaign} />
         <Route exact path="/my-fundraisers" component={Home} />
+        <Route exact path="/payment" component={Payment} />
         <Route
           exact
           path="/logout"
