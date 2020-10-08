@@ -9,7 +9,8 @@ const stripePromise = loadStripe(
 
 const Payment = () => {
   const [active, setactive] = useState(0);
-  const handleClick = async (event) => {
+
+  const handleClick = async (_) => {
     if (active === 2) {
       // Get Stripe.js instance
       const stripe = await stripePromise;
@@ -27,7 +28,6 @@ const Payment = () => {
           }),
         }
       );
-      console.log(response);
 
       const session = await response.json();
 
