@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import Slider from "../components/Slider";
 import * as Icons from "react-feather";
 import Hamburger from "../components/Hamburger";
 import Button from "../components/Button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const hero = [
   {
@@ -34,7 +35,6 @@ const Home = ({
   const [scrolled, setScrolled] = useState(false);
   const [hamburger, sethamburger] = useState(false);
 
-  const node = useRef();
   useEffect(
     (_) => {
       document.body.style.overflow = !hamburger && "scroll";
@@ -57,14 +57,15 @@ const Home = ({
 
   return (
     <div className="Home">
-      {
-        <Hamburger
-          reference={node}
-          hamburger={hamburger}
-          handleBurger={sethamburger}
-          route={pathname}
-        />
-      }
+      <AnimatePresence initial={false}>
+        {hamburger && (
+          <Hamburger
+            hamburger={hamburger}
+            handleBurger={sethamburger}
+            route={pathname}
+          />
+        )}
+      </AnimatePresence>
       {
         <Nav
           scroll={scrolled}
@@ -73,7 +74,7 @@ const Home = ({
           }}
         />
       }
-      <main ref={node}>
+      <main>
         <div className="headers" style={{ marginTop: scrolled ? "10rem" : "" }}>
           <div className="title">Trending</div>
           <div className="more">MORE</div>
