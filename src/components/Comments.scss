@@ -1,12 +1,18 @@
 $bg-gray: #d6d7db;
 
 $placeholder-gray: #b2b1b4;
+
 .comments {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
+
   .comment-card {
+    &:last-child {
+      margin-bottom: 12rem;
+    }
+
     background-color: #ecf0f4;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius: 1rem;
@@ -24,6 +30,7 @@ $placeholder-gray: #b2b1b4;
         border-radius: 50%;
         margin-right: 2rem;
       }
+
       .name {
         font-size: 1rem;
         font-weight: bold;
