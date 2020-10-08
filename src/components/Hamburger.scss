@@ -1,79 +1,88 @@
 $accent-color: #f7a117;
 
-.hamburger-menu {
-  transition: transform 0.3s ease-in;
+.hamburger-container {
+  bottom: 0;
+  left: 0;
   position: fixed;
-  padding: 2rem;
-  height: 100vh;
-  background-color: white;
-  width: 75%;
-  display: flex;
-  flex-direction: column;
   z-index: 10001;
-  overflow-y: hidden;
-
-  .hamburger-cross {
-    position: absolute;
-    right: 1rem;
-
-    top: 1rem;
-  }
-
-  .hamburger-top {
-    margin-top: 2rem;
+  display: block;
+  right: 0;
+  top: 0;
+  .hamburger-menu {
+    transition: transform 0.5s ease-in;
+    position: relative;
+    padding: 2rem;
+    height: 100vh;
+    background-color: white;
+    width: 75%;
     display: flex;
-
-    .img-wrapper {
-      margin-right: 1rem;
-
-      img {
-        height: 7rem;
-        width: 7rem;
-        border-radius: 50%;
-
-        object-fit: cover;
-      }
-    }
-
-    span {
-      align-self: center;
-      font-size: 1.6rem;
-      font-weight: bolder;
-    }
-  }
-
-  .hamburger-items {
-    height: 100%;
-    display: flex;
-    width: 100%;
     flex-direction: column;
-    margin: 2rem 0;
-    font-size: 2rem;
-    // justify-content: space-around;
 
-    .hamburger-item {
+    overflow-y: hidden;
+
+    .hamburger-cross {
+      position: absolute;
+      right: 1rem;
+
+      top: 1rem;
+    }
+
+    .hamburger-top {
+      margin-top: 2rem;
       display: flex;
-      margin-top: 20%;
 
-      &.active {
-        color: $accent-color;
-      }
+      .img-wrapper {
+        margin-right: 1rem;
 
-      a {
-        display: flex;
+        img {
+          height: 7rem;
+          width: 7rem;
+          border-radius: 50%;
 
-        * {
-          align-self: center;
+          object-fit: cover;
         }
       }
 
       span {
-        margin-left: 2rem;
+        align-self: center;
+        font-size: 1.6rem;
+        font-weight: bolder;
       }
     }
 
-    .authentication-status {
-      margin-top: 3rem;
+    .hamburger-items {
+      height: 100%;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      margin: 2rem 0;
+      font-size: 2rem;
+      // justify-content: space-around;
+
+      .hamburger-item {
+        display: flex;
+        margin-top: 20%;
+
+        &.active {
+          color: $accent-color;
+        }
+
+        a {
+          display: flex;
+
+          * {
+            align-self: center;
+          }
+        }
+
+        span {
+          margin-left: 2rem;
+        }
+      }
+
+      .authentication-status {
+        margin-top: 3rem;
+      }
     }
   }
 }
