@@ -30,34 +30,35 @@ const menus = {
 };
 const Hamburger = ({ hamburger, handleBurger, route }) => {
   const [active, setactive] = useState(route);
-  // const node = useRef();
-  // const handleClick = useCallback(
-  //   (e) => {
-  //     if (!node.current.contains(e.target)) {
-  //       handleBurger(false);
-  //     }
-  //   },
-  //   [handleBurger]
-  // );
-  // useEffect(
-  //   (_) => {
-  //     window.addEventListener("click", handleClick);
-  //     return () => {
-  //       document.removeEventListener("click", handleClick);
-  //     };
-  //   },
-  //   [handleClick]
-  // );
+  const node = useRef();
+  const handleClick = useCallback(
+    (e) => {
+      if (node.current.contains(e.target)) {
+        return;
+      }
+      handleBurger(false);
+    },
+    [handleBurger]
+  );
+  useEffect(
+    (_) => {
+      window.addEventListener("click", handleClick);
+      return () => {
+        document.removeEventListener("click", handleClick);
+      };
+    },
+    [handleClick]
+  );
 
   return (
     <motion.div
-      animate={{ width: "100%" }}
-      initial={{ width: 0 }}
-      exit={{ width: 0 }}
+      animate={{ x: 0 }}
+      initial={{ x: "-100%" }}
+      exit={{ x: "-100%" }}
       transition={{ duration: 0.3 }}
       className="hamburger-container"
     >
-      <div className="hamburger-menu">
+      <div ref={node} className="hamburger-menu">
         <div
           className="hamburger-cross"
           onClick={() => {
