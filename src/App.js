@@ -8,6 +8,7 @@ import Home from './containers/Home';
 import { Switch, Route } from 'react-router-dom';
 import MyDonations from './containers/MyDonations';
 import NewCampaign from './containers/NewCampaign';
+import MyFundraiser from './containers/MyFundraiser';
 function App() {
     return (
         <div className='App'>
@@ -20,7 +21,7 @@ function App() {
                 <Route exact path='/login' component={Auth} />
                 <Route exact path='/signup' component={Auth} />
                 <Route exact path='/my-donations' component={MyDonations} />
-                <Route exact path='/my-fundraisers' component={Home} />
+                <Route exact path='/my-fundraisers' component={MyFundraiser} />
                 <Route exact path='/payment' component={Payment} />
 
                 <Route exact path='/my-favorites' component={() => <MyDonations deleteButton />} />
