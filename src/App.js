@@ -1,5 +1,6 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./App.scss";
+import { loadUser } from "./store/actions/auth";
 import Auth from "./containers/Auth";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Campaign from "./containers/Campaign";
@@ -11,6 +12,9 @@ import { Switch, Route } from "react-router-dom";
 import MyDonations from "./containers/MyDonations";
 import NewCampaign from "./containers/NewCampaign";
 function App() {
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
   return (
     <Fragment>
       <Switch>

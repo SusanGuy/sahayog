@@ -1,18 +1,16 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import history from "../store/history";
 import * as Icons from "react-feather";
 import AuthInput from "../components/AuthInput";
 import { Link } from "react-router-dom";
-
+import { login, signup } from "../store/actions/auth";
 const Button = ({ children }) => {
   return <button className="auth-main-button">{children}</button>;
 };
 
-const Auth = ({
-  history: {
-    location: { pathname },
-  },
-}) => {
-  const isLogin = pathname === "/login";
+const Auth = ({ login, signup, loading, isAuthenticated }) => {
+  const isLogin = history.location.pathname === "/login";
   let [state, setState] = useState({
     name: "",
     email: "",
@@ -28,6 +26,15 @@ const Auth = ({
     });
   };
 
+  // Handle login/Signup with redux
+  const handleSubmit = async (e) => {
+    console.log("ascascas");
+    e.preventDefault();
+    if (isLogin) {
+      return login(email, password);
+    }
+    signup(email, password);
+  };
   return (
     <div className="Auth">
       <Icons.Menu />
@@ -37,7 +44,7 @@ const Auth = ({
         <h2>Sign {isLogin ? "in to continue!" : "up to get started!"} </h2>
       </div>
 
-      <form style={{ width: "100%" }}>
+      <form onSubmit={(e) => handleSubmit(e)} style={{ width: "100%" }}>
         <div className="auth-input-wrapper">
           {!isLogin && (
             <AuthInput
@@ -87,4 +94,10 @@ const Auth = ({
   );
 };
 
-export default Auth;
+const mapStatetoProps = (state) => {
+  return {
+    loading: state.loading,
+    isAuthenticated: state.token !== null,
+  };
+};
+export default connect(mapStatetoProps, { login, signup })(Auth);
