@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import * as Icons from "react-feather";
 import AuthButton from "./AuthButton";
+import { motion } from "framer-motion";
 import "./Hamburger.scss";
 import { Link } from "react-router-dom";
 const menus = {
@@ -27,78 +28,87 @@ const menus = {
     link: "/my-profile",
   },
 };
-const Hamburger = ({ reference, hamburger, handleBurger, route }) => {
+const Hamburger = ({ hamburger, handleBurger, route }) => {
   const [active, setactive] = useState(route);
-
-  const handleClick = useCallback(
-    (e) => {
-      if (!reference.current.contains(e.target)) {
-        return;
-      }
-      console.log("ayo");
-      handleBurger(false);
-    },
-    [handleBurger, reference]
-  );
-  useEffect(
-    (_) => {
-      window.addEventListener("click", handleClick);
-      return () => {
-        document.removeEventListener("click", handleClick);
-      };
-    },
-    [handleClick]
-  );
+  // const node = useRef();
+  // const handleClick = useCallback(
+  //   (e) => {
+  //     if (!node.current.contains(e.target)) {
+  //       handleBurger(false);
+  //     }
+  //   },
+  //   [handleBurger]
+  // );
+  // useEffect(
+  //   (_) => {
+  //     window.addEventListener("click", handleClick);
+  //     return () => {
+  //       document.removeEventListener("click", handleClick);
+  //     };
+  //   },
+  //   [handleClick]
+  // );
 
   return (
-    <div
-      style={
-        hamburger
-          ? {}
-          : {
-              transform: "translateX(-125%)",
-            }
-      }
-      className="hamburger-menu"
+    <motion.div
+      animate={{ width: "100%" }}
+      initial={{ width: 0 }}
+      exit={{ width: 0 }}
+      transition={{ duration: 0.3 }}
+      className="hamburger-container"
     >
-      <div
-        className="hamburger-cross"
-        onClick={() => {
-          handleBurger(false);
-        }}
-      >
-        <Icons.X />
-      </div>
-      <div className="hamburger-top">
-        <div className="img-wrapper">
-          <img src="https://www.unh.edu/unhtoday/sites/default/files/styles/article_huge/public/article/2019/professional_woman_headshot.jpg?itok=3itzxHXh" />
+      <div className="hamburger-menu">
+        <div
+          className="hamburger-cross"
+          onClick={() => {
+            handleBurger(false);
+          }}
+        >
+          <Icons.X />
         </div>
-        <span>Sushant Baskota</span>
+        <motion.div
+          animate={{ y: 0 }}
+          initial={{ y: -2000 }}
+          transition={{ duration: 0.4 }}
+          exit={{ y: -2000 }}
+          className="hamburger-top"
+        >
+          <div className="img-wrapper">
+            <img src="https://www.unh.edu/unhtoday/sites/default/files/styles/article_huge/public/article/2019/professional_woman_headshot.jpg?itok=3itzxHXh" />
+          </div>
+          <span>Sushant Baskota</span>
+        </motion.div>
+        <motion.div
+          animate={{ y: 0 }}
+          initial={{ y: 2000 }}
+          exit={{ y: 2000 }}
+          transition={{ duration: 0.5 }}
+          className="hamburger-items"
+        >
+          {Object.keys(menus).map((key) => {
+            const { title, icon, link } = menus[key];
+            return (
+              <div
+                key={link}
+                onClick={() => {
+                  handleBurger(false);
+                  setactive(link);
+                }}
+                className={`hamburger-item ${active === link ? "active" : ""}`}
+              >
+                <Link to={link}>
+                  {icon}
+                  <span>{title}</span>
+                </Link>
+              </div>
+            );
+          })}
+          <div className="authentication-status">
+            <AuthButton>Log Out</AuthButton>
+          </div>
+        </motion.div>
       </div>
-      <div className="hamburger-items">
-        {Object.keys(menus).map((key) => {
-          const { title, icon, link } = menus[key];
-          return (
-            <div
-              key={link}
-              onClick={() => {
-                handleBurger(false);
-                setactive(link);
-              }}
-              className={`hamburger-item ${active === link ? "active" : ""}`}
-            >
-              <Link to={link}>
-                {icon}
-                <span>{title}</span>
-              </Link>
-            </div>
-          );
-        })}
-        <div className="authentication-status">
-          <AuthButton>Log Out</AuthButton>
-        </div>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -237,6 +237,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 1.5rem 3rem;
+    height: 100vh;
 
     .bookmark {
       position: absolute;
@@ -391,8 +392,10 @@ body {
 
     .main-content {
       margin-top: 0.7rem;
-      max-height: 30rem;
+      //   max-height: 30rem;
+      height: 100%;
       overflow-y: scroll;
+      padding-bottom: 2rem;
     }
   }
 
@@ -650,6 +653,7 @@ $thumb-d: 1.5em;
   padding: 2rem 2rem;
   height: 100vh;
   background: white;
+  font-size: 1.5rem;
 
   .amount {
     margin: 2rem 1rem;
@@ -738,6 +742,7 @@ $thumb-d: 1.5em;
 
   .main-header {
     margin: 3rem 0;
+
     h1,
     h2 {
       margin: 0;

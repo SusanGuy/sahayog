@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import BackButton from "../components/BackButton";
 import * as Icons from "react-feather";
 import Button from "../components/Button";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-const stripePromise = loadStripe(
-  "pk_test_51HZrz3GnrUKx9RrHsMiAgCquBTfdYCfLzyJgysrgZLFPheK6knupQxD8uiq4xLWvj8CCBZaG9psqc1S7johSfqNt00Xkrdpznu"
-);
+import KhaltiCheckout from "khalti-web";
+import StripeCheckoutButton from "../components/StripeButton";
 
 const Payment = () => {
   const [active, setactive] = useState(0);
@@ -44,6 +41,33 @@ const Payment = () => {
     }
   };
   const amount = 1000;
+
+  const config = {
+    publicKey: "test_public_key_5535b5e015834104bdd1b24d62e2ec02",
+    productIdentity: "Test Product",
+    productName: "Dragon",
+    productUrl: "https://susansubedi.com",
+    eventHandler: {
+      onSuccess(payload) {
+        console.log(payload);
+      },
+      onError(error) {
+        console.log(error);
+      },
+      onClose() {
+        console.log("widget is closing");
+      },
+    },
+  };
+
+  const checkout = new KhaltiCheckout(config);
+
+  const handleKhaltiDonation = () => {
+    checkout.show({
+      amount,
+    });
+  };
+
   return (
     <div className="Payment">
       <BackButton color="rgb(34, 27, 27)" />
@@ -99,8 +123,8 @@ const Payment = () => {
           </div>
         </div>
       </div>
-
-      <div className="bottom" onClick={() => handleClick()}>
+      <StripeCheckoutButton price={amount} />
+      <div onClick={handleKhaltiDonation} className="bottom">
         <Button>Donate ${amount}</Button>
       </div>
     </div>
