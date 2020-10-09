@@ -118,7 +118,6 @@ const NumpadWrapper = ({ donation, changeDonation, slider, setSlider }) => {
       const hello = newDonation.slice(0, -1);
       newDonation = hello === "" ? 0 : parseInt(hello);
     }
-
     changeDonation(newDonation);
   };
 
@@ -132,7 +131,9 @@ const NumpadWrapper = ({ donation, changeDonation, slider, setSlider }) => {
         {nums.map(({ key, value }) => (
           <span
             key={key}
-            onClick={() => handleDonation(key)}
+            onClick={() => {
+              handleDonation(key);
+            }}
             style={{
               padding: window.innerHeight * 0.02,
             }}

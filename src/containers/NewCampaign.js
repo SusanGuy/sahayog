@@ -17,7 +17,6 @@ const NewCampaign = () => {
         setfiles([ ...files, URL.createObjectURL(e.target.files[0]) ]);
     };
 
-    console.log(uploadFiles);
     return (
         <div className='NewCampaign'>
             <div className='title'>
