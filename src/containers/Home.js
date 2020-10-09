@@ -27,6 +27,35 @@ const hero = [
   },
 ];
 
+const FundCards = ({ hero }) => (
+  <div className="fundcards">
+    {hero.map(({ title, image, daysLeft, raised, goal }) => (
+      <div key={title} className="fcard">
+        <div className="top">
+          <img src={image} />
+          <div className="img-comp">
+            <span>{`${daysLeft} days left`}</span>
+            <div className="bookmark">
+              <Icons.Bookmark />
+            </div>
+          </div>
+        </div>
+        <div className="bottom">
+          <span className="fundname">{title}</span>
+          <Slider />
+          <div className="raised-text">
+            <span>Total Raised</span>
+            <span style={{ fontWeight: 600 }}>
+              Rs. &nbsp;
+              {`${raised} (${Math.floor((raised * 100) / goal)}%)`}
+            </span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
 const Home = ({
   history: {
     location: { pathname },
@@ -80,61 +109,8 @@ const Home = ({
           <div className="more">MORE</div>
         </div>
 
-        <div
-          style={{
-            overflowX: hamburger ? "hidden" : "scroll",
-          }}
-          className="fundcards"
-        >
-          {hero.map((h) => (
-            <div key={h.title} className="fcard">
-              <div className="top">
-                <img src={h.image} />
-                <div className="img-comp">
-                  <span>{`${h.daysLeft} days left`}</span>
-                  <div className="bookmark">
-                    <Icons.Bookmark />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom">
-                <span className="fundname">{h.title}</span>
-                <Slider />
-                <div className="raised-text">
-                  <span>Total Raised</span>
-                  <span>{`${h.raised} (${Math.floor(
-                    (h.raised * 100) / h.goal
-                  )}%)`}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="fundcards">
-          {hero.map((h) => (
-            <div key={h.title} className="fcard">
-              <div className="top">
-                <img src={h.image} />
-                <div className="img-comp">
-                  <span>{`${h.daysLeft} days left`}</span>
-                  <div className="bookmark">
-                    <Icons.Bookmark />
-                  </div>
-                </div>
-              </div>
-              <div className="bottom">
-                <span className="fundname">{h.title}</span>
-                <Slider />
-                <div className="raised-text">
-                  <span>Total Raised</span>
-                  <span>{`${h.raised} (${Math.floor(
-                    (h.raised * 100) / h.goal
-                  )}%)`}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <FundCards hero={hero} />
+        <FundCards hero={hero} />
       </main>
       <Button position="fixed" bottom="1rem" width="60%" right="1rem">
         <div className="start-button">Start Campaign</div>
