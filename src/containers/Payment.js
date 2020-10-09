@@ -6,11 +6,10 @@ import KhaltiCheckout from "khalti-web";
 import Modal from "../components/PaymentConfirmModal";
 import { loadStripe } from "@stripe/stripe-js";
 
-//import StripeCheckoutButton from "../components/StripeButton";
 const stripePromise = loadStripe(
   "pk_test_51HZrz3GnrUKx9RrHsMiAgCquBTfdYCfLzyJgysrgZLFPheK6knupQxD8uiq4xLWvj8CCBZaG9psqc1S7johSfqNt00Xkrdpznu"
 );
-const Payment = () => {
+const Payment = ({ history }) => {
   const [active, setactive] = useState(0);
   const [modal, setModal] = useState(false);
 
@@ -80,7 +79,7 @@ const Payment = () => {
 
   return (
     <div className="Payment">
-      <BackButton color="rgb(34, 27, 27)" />
+      <BackButton history={history} color="rgb(34, 27, 27)" />
       <div className="amount">
         <span>Amount</span>
         <div className="amount-right">

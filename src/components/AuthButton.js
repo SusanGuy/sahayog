@@ -1,7 +1,11 @@
 import React from "react";
 import "./AuthButton.scss";
-const AuthButton = ({ children }) => {
-  return <button className="auth-button">{children}</button>;
+const AuthButton = ({ children, ...rest }) => {
+  return (
+    <button {...rest} className="auth-button">
+      {children}
+    </button>
+  );
 };
 
 export default AuthButton;

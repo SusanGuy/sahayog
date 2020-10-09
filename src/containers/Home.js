@@ -27,10 +27,14 @@ const hero = [
   },
 ];
 
-const FundCards = ({ hero }) => (
+const FundCards = ({ hero, history }) => (
   <div className="fundcards">
     {hero.map(({ title, image, daysLeft, raised, goal }) => (
-      <div key={title} className="fcard">
+      <div
+        onClick={() => history.push("/campaign/1")}
+        key={title}
+        className="fcard"
+      >
         <div className="top">
           <img src={image} />
           <div className="img-comp">
@@ -56,11 +60,10 @@ const FundCards = ({ hero }) => (
   </div>
 );
 
-const Home = ({
-  history: {
+const Home = ({ history }) => {
+  const {
     location: { pathname },
-  },
-}) => {
+  } = history;
   const [scrolled, setScrolled] = useState(false);
   const [hamburger, sethamburger] = useState(false);
 
@@ -89,6 +92,7 @@ const Home = ({
       <AnimatePresence initial={false}>
         {hamburger && (
           <Hamburger
+            history={history}
             hamburger={hamburger}
             handleBurger={sethamburger}
             route={pathname}
@@ -109,8 +113,8 @@ const Home = ({
           <div className="more">MORE</div>
         </div>
 
-        <FundCards hero={hero} />
-        <FundCards hero={hero} />
+        <FundCards history={history} hero={hero} />
+        <FundCards history={history} hero={hero} />
       </main>
       <Button position="fixed" bottom="1rem" width="60%" right="1rem">
         <div className="start-button">Start Campaign</div>

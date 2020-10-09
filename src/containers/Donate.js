@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import Switcher from "../components/Switcher";
 import * as Icons from "react-feather";
 
-const Donate = ({ target }) => {
+const Donate = ({ target, history }) => {
   const [donation, setDonation] = useState(0);
   const [previous, setPrevious] = useState(0);
   const [slider, setSlider] = useState(true);
@@ -44,8 +44,7 @@ const Donate = ({ target }) => {
       />
       <div className="slider-before">
         <div className="header">
-          <BackButton color="rgb(34, 27, 27)" />
-          <span>Add comment</span>
+          <BackButton history={history} color="rgb(34, 27, 27)" />
         </div>
 
         <motion.img
@@ -76,7 +75,7 @@ const Donate = ({ target }) => {
         )}
       </div>
       <div className="button-container">
-        <Button height="100%">
+        <Button onClick={() => history.push("/pay/1")} height="100%">
           Donate &nbsp;<span style={{ fontWeight: "bolder" }}>$</span>
           <CountHook donation={donation} previous={previous} />
         </Button>
