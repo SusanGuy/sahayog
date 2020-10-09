@@ -3,10 +3,12 @@ import BackButton from "../components/BackButton";
 import * as Icons from "react-feather";
 import Button from "../components/Button";
 import KhaltiCheckout from "khalti-web";
-import StripeCheckoutButton from "../components/StripeButton";
+import Modal from "../components/PaymentConfirmModal";
+//import StripeCheckoutButton from "../components/StripeButton";
 
 const Payment = () => {
   const [active, setactive] = useState(0);
+  const [modal, setModal] = useState(false);
 
   const amount = 1000;
 
@@ -22,18 +24,24 @@ const Payment = () => {
       onError(error) {
         console.log(error);
       },
-      onClose() {
-        console.log("widget is closing");
-      },
     },
   };
 
   const checkout = new KhaltiCheckout(config);
 
-  const handleKhaltiDonation = () => {
-    checkout.show({
-      amount,
-    });
+  const handleDonation = () => {
+    switch (active) {
+      case 0:
+        checkout.show({
+          amount,
+        });
+        break;
+      case 1:
+        break;
+      case 2:
+        alert("Stripe khoi randi");
+        break;
+    }
   };
 
   return (
@@ -75,10 +83,24 @@ const Payment = () => {
             <span>eSewa</span>
             {active === 1 ? <Icons.Check color="green" /> : ""}
           </div>
+          <div
+            onClick={() => {
+              if (active === 2) {
+                setactive(null);
+              } else {
+                setactive(2);
+              }
+            }}
+            className={`method ${active === 2 ? "active" : ""}`}
+          >
+            <span>Credit/Debit Card</span>
+            {active === 2 ? <Icons.Check color="green" /> : ""}
+          </div>
         </div>
       </div>
-      <StripeCheckoutButton price={amount} />
-      <div onClick={handleKhaltiDonation} className="bottom">
+
+      {modal && <Modal setModal={setModal} />}
+      <div onClick={() => setModal(true)} className="bottom">
         <Button>Donate ${amount}</Button>
       </div>
     </div>
