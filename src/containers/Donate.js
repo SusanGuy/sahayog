@@ -2,12 +2,17 @@ import React, { Fragment, useState } from "react";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import { useCountUp } from "react-countup";
+import { Redirect } from "react-router-dom";
 import numeral from "numeral";
 import { motion } from "framer-motion";
 import Switcher from "../components/Switcher";
 import * as Icons from "react-feather";
 
-const Donate = ({ target, history }) => {
+const Donate = ({ history }) => {
+  const target = parseInt(
+    new URLSearchParams(history.location.search).get("target")
+  );
+
   const [donation, setDonation] = useState(0);
   const [previous, setPrevious] = useState(0);
   const [slider, setSlider] = useState(true);
@@ -30,6 +35,10 @@ const Donate = ({ target, history }) => {
 
     return <span>{countUp}</span>;
   };
+
+  if (!target) {
+    return <Redirect to="/" />;
+  }
   const height = slider ? window.innerHeight * 0.4 : window.innerHeight * 0.3;
   return (
     <div className="Donate">

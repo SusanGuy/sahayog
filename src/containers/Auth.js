@@ -37,40 +37,45 @@ const Auth = ({
         <h2>Sign {isLogin ? "in to continue!" : "up to get started!"} </h2>
       </div>
 
-      <div className="auth-input-wrapper">
-        {!isLogin && (
+      <form style={{ width: "100%" }}>
+        <div className="auth-input-wrapper">
+          {!isLogin && (
+            <AuthInput
+              required
+              onChange={(e) => handleChange(e)}
+              type="text"
+              name="name"
+              value={name}
+              label="Full Name"
+            />
+          )}
           <AuthInput
             onChange={(e) => handleChange(e)}
-            type="text"
-            name="name"
-            value={name}
-            label="Full Name"
+            required
+            type="email"
+            name="email"
+            value={email}
+            label="Email ID"
           />
-        )}
-        <AuthInput
-          onChange={(e) => handleChange(e)}
-          type="email"
-          name="email"
-          value={email}
-          label="Email ID"
-        />
-        <AuthInput
-          onChange={(e) => handleChange(e)}
-          type="password"
-          value={password}
-          name="password"
-          label="Password"
-        />
-        {isLogin && <span className="forgot">Forgot Password?</span>}
-      </div>
+          <AuthInput
+            onChange={(e) => handleChange(e)}
+            required
+            type="password"
+            value={password}
+            name="password"
+            label="Password"
+          />
+          {isLogin && <span className="forgot">Forgot Password?</span>}
+        </div>
 
-      <div className="auth-buttons">
-        <Button>{isLogin ? "Login" : "Sign Up"}</Button>
-        <Button>
-          <Icons.Facebook />
-          Connect with facebook
-        </Button>
-      </div>
+        <div className="auth-buttons">
+          <Button type="submit">{isLogin ? "Login" : "Sign Up"}</Button>
+          <Button>
+            <Icons.Facebook />
+            Connect with facebook
+          </Button>
+        </div>
+      </form>
 
       <div className="auth-bottom-status">
         {isLogin ? "I'm a new user. " : "I'm already a member. "}
