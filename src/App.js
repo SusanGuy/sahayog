@@ -7,6 +7,7 @@ import Donate from "./containers/Donate";
 import Payment from "./containers/Payment";
 import Home from "./containers/Home";
 import { Switch, Route } from "react-router-dom";
+import StripCheckout from "./containers/StripeCheckout";
 function App() {
   return (
     <div className="App">
@@ -17,7 +18,6 @@ function App() {
         <Route exact path="/my-donations" component={Campaign} />
         <Route exact path="/my-fundraisers" component={Home} />
         <Route exact path="/payment" component={Payment} />
-        {/* changes */}
         <Route
           exact
           path="/logout"

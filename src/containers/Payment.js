@@ -3,6 +3,7 @@ import BackButton from "../components/BackButton";
 import * as Icons from "react-feather";
 import Button from "../components/Button";
 import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 const stripePromise = loadStripe(
   "pk_test_51HZrz3GnrUKx9RrHsMiAgCquBTfdYCfLzyJgysrgZLFPheK6knupQxD8uiq4xLWvj8CCBZaG9psqc1S7johSfqNt00Xkrdpznu"
 );
@@ -35,6 +36,7 @@ const Payment = () => {
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
       });
+      console.log(result);
 
       if (result.error) {
         console.log(result.error);
