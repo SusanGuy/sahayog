@@ -2,7 +2,6 @@ import React from "react";
 import "./App.scss";
 import Auth from "./containers/Auth";
 import Campaign from "./containers/Campaign";
-import Donation from "./containers/Donation";
 import Donate from "./containers/Donate";
 import Payment from "./containers/Payment";
 import Home from "./containers/Home";
@@ -13,7 +12,10 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Payment} />
+        <Route exact path="/campaign/:id" component={Campaign} />
+        <Route exact path="/donate/:campaignId" component={Donate} />
+        <Route exact path="/pay/:campaignId" component={Payment} />
+        <Route exact path="/login" component={Auth} />
         <Route exact path="/signup" component={Auth} />
         <Route exact path="/my-donations" component={MyDonations} />
         <Route exact path="/my-fundraisers" component={Home} />
