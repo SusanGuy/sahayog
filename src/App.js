@@ -7,11 +7,13 @@ import Payment from "./containers/Payment";
 import Home from "./containers/Home";
 import { Switch, Route } from "react-router-dom";
 import MyDonations from "./containers/MyDonations";
+import NewCampaign from "./containers/NewCampaign";
 function App() {
   return (
     <div className="App">
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/new-campaign" component={NewCampaign} />
         <Route exact path="/campaign/:id" component={Campaign} />
         <Route exact path="/donate/:campaignId" component={Donate} />
         <Route exact path="/pay/:campaignId" component={Payment} />

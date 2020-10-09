@@ -116,7 +116,13 @@ const Home = ({ history }) => {
         <FundCards history={history} hero={hero} />
         <FundCards history={history} hero={hero} />
       </main>
-      <Button position="fixed" bottom="1rem" width="60%" right="1rem">
+      <Button
+        onClick={() => history.push("/new-campaign")}
+        position="fixed"
+        bottom="1rem"
+        width="60%"
+        right="1rem"
+      >
         <div className="start-button">Start Campaign</div>
       </Button>
     </div>

@@ -29,7 +29,7 @@ const menus = {
     link: "/my-profile",
   },
 };
-const Hamburger = ({ hamburger, handleBurger, history }) => {
+const Hamburger = ({ handleBurger, history }) => {
   const active = useLocation().pathname;
 
   return (
