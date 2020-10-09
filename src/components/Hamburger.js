@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import * as Icons from 'react-feather';
 import AuthButton from './AuthButton';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import './Hamburger.scss';
 import { Link } from 'react-router-dom';
 const menus = {
@@ -29,7 +30,7 @@ const menus = {
     }
 };
 const Hamburger = ({ hamburger, handleBurger, route }) => {
-    const [ active, setactive ] = useState(route);
+    const active = useLocation().pathname;
 
     return (
         <motion.div
@@ -77,7 +78,7 @@ const Hamburger = ({ hamburger, handleBurger, route }) => {
                                 key={link}
                                 onClick={() => {
                                     handleBurger(false);
-                                    setactive(link);
+                                    // setactive(link);
                                 }}
                                 className={`hamburger-item ${active === link ? 'active' : ''}`}
                             >
