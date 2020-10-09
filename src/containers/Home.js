@@ -27,10 +27,10 @@ const hero = [
     }
 ];
 
-const FundCards = ({ hero }) => (
+const FundCards = ({ hero, history }) => (
     <div className='fundcards'>
         {hero.map(({ title, image, daysLeft, raised, goal }) => (
-            <div key={title} className='fcard'>
+            <div key={title} className='fcard' onClick={() => history.push('/campaign/1')}>
                 <div className='top'>
                     <img src={image} />
                     <div className='img-comp'>
@@ -56,7 +56,8 @@ const FundCards = ({ hero }) => (
     </div>
 );
 
-const Home = ({ history: { location: { pathname } } }) => {
+const Home = ({ history }) => {
+    const { location: { pathname } } = history;
     const [ scrolled, setScrolled ] = useState(false);
     const [ hamburger, sethamburger ] = useState(false);
 
@@ -81,9 +82,11 @@ const Home = ({ history: { location: { pathname } } }) => {
     );
 
     return (
-        <div className='Home' onClick={hamburger ? () => sethamburger(false) : () => {}}>
+        <div className='Home'>
             <AnimatePresence initial={false}>
-                {hamburger && <Hamburger hamburger={hamburger} handleBurger={sethamburger} route={pathname} />}
+                {hamburger && (
+                    <Hamburger history={history} hamburger={hamburger} handleBurger={sethamburger} route={pathname} />
+                )}
             </AnimatePresence>
             {
                 <Nav
@@ -99,10 +102,16 @@ const Home = ({ history: { location: { pathname } } }) => {
                     <div className='more'>MORE</div>
                 </div>
 
-                <FundCards hero={hero} />
-                <FundCards hero={hero} />
+                <FundCards history={history} hero={hero} />
+                <FundCards history={history} hero={hero} />
             </main>
-            <Button position='fixed' bottom='1rem' width='60%' right='1rem'>
+            <Button
+                onClick={() => history.push('/new-campaign')}
+                position='fixed'
+                bottom='1rem'
+                width='60%'
+                right='1rem'
+            >
                 <div className='start-button'>Start Campaign</div>
             </Button>
         </div>
