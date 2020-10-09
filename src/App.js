@@ -1,5 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./App.scss";
+import { connect } from "react-redux";
+import { setAuthToken } from "./utils";
+import { loadUser } from "./store/actions/auth";
 import Auth from "./containers/Auth";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Campaign from "./containers/Campaign";
@@ -10,7 +13,14 @@ import Home from "./containers/Home";
 import { Switch, Route } from "react-router-dom";
 import MyDonations from "./containers/MyDonations";
 import NewCampaign from "./containers/NewCampaign";
-function App() {
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+const App = ({ loadUser }) => {
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
   return (
     <Fragment>
       <Switch>
@@ -37,6 +47,6 @@ function App() {
       </Switch>
     </Fragment>
   );
-}
+};
 
-export default App;
+export default connect(null, { loadUser })(App);
