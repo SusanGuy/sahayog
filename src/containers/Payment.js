@@ -4,7 +4,6 @@ import * as Icons from "react-feather";
 import Button from "../components/Button";
 import KhaltiCheckout from "khalti-web";
 import Modal from "../components/PaymentConfirmModal";
-//import StripeCheckoutButton from "../components/StripeButton";
 
 const Payment = () => {
   const [active, setactive] = useState(0);
