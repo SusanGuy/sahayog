@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import "./App.scss";
 import Auth from "./containers/Auth";
@@ -25,33 +24,6 @@ function App() {
         <Route exact path="/my-donations" component={MyDonations} />
         <Route exact path="/my-fundraisers" component={Home} />
         <Route exact path="/payment" component={Payment} />
-=======
-import React from 'react';
-import './App.scss';
-import Auth from './containers/Auth';
-import Campaign from './containers/Campaign';
-import Donate from './containers/Donate';
-import Payment from './containers/Payment';
-import Home from './containers/Home';
-import { Switch, Route } from 'react-router-dom';
-import MyDonations from './containers/MyDonations';
-import NewCampaign from './containers/NewCampaign';
-import MyFundraiser from './containers/MyFundraiser';
-function App() {
-    return (
-        <div className='App'>
-            <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/new-campaign' component={NewCampaign} />
-                <Route exact path='/campaign/:id' component={Campaign} />
-                <Route exact path='/donate/:campaignId' component={Donate} />
-                <Route exact path='/pay/:campaignId' component={Payment} />
-                <Route exact path='/login' component={Auth} />
-                <Route exact path='/signup' component={Auth} />
-                <Route exact path='/my-donations' component={MyDonations} />
-                <Route exact path='/my-fundraisers' component={MyFundraiser} />
-                <Route exact path='/payment' component={Payment} />
->>>>>>> 07c17d5ffaf652c02042991f6ed94a19af705ad6
 
         <Route
           exact
