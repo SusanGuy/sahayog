@@ -1,0 +1,117 @@
+$bg-gray: #d6d7db;
+
+$placeholder-gray: #b2b1b4;
+$primary-color: #fcdf17;
+$accent-color: #f7a117;
+
+.MyFundraisers {
+    height: 100vh;
+    background-color: whitesmoke;
+    overflow-x: hidden;
+
+    .title {
+        padding-top: 20%;
+        padding-left: 1rem;
+
+        span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: $placeholder-gray;
+
+        }
+    }
+
+    .fund-cards {
+        // display: flex;
+        margin: 1rem;
+        // width: 100%;
+        // justify-content: space-evenly;
+        height: 100vh;
+        overflow-y: scroll;
+
+
+        .fund-card {
+            padding: 1rem;
+            height: fit-content;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+
+            .left {
+                display: flex;
+
+                img {
+                    height: 7rem;
+                    align-self: center;
+                    width: 7rem;
+                    object-fit: cover;
+                }
+            }
+
+            .middle {
+                margin-left: 2rem;
+                width: 50%;
+                margin-right: 2rem;
+
+                .middle-top {
+                    display: flex;
+                    justify-content: space-between;
+
+
+
+                    span {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                }
+
+                span {
+                    line-height: 1.6rem;
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                }
+
+                .two {
+                    display: flex;
+                    justify-content: space-between;
+
+                    span {
+                        box-sizing: border-box;
+                        font-weight: 500;
+                        color: $placeholder-gray;
+                        font-size: 1rem;
+                    }
+                }
+            }
+
+            .end {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                span {
+                    font-weight: 700;
+                    width: 100%;
+                    align-self: center;
+                    line-height: 1.2rem;
+                    text-align: left;
+
+
+                }
+
+                .end-date {
+                    font-weight: 400;
+                    color: $placeholder-gray;
+                }
+            }
+
+            display: flex;
+            // flex-direction: column;
+            background: lighten($bg-gray, 6);
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            // justify-content: space-evenly;
+
+        }
+    }
+}

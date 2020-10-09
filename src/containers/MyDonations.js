@@ -3,6 +3,7 @@ import * as Icons from 'react-feather';
 import './MyDonations.scss';
 import Hamburger from '../components/Hamburger';
 import { motion, AnimatePresence } from 'framer-motion';
+import HamburgerButton from '../components/HamburgerButton';
 const MyDonations = ({ deleteButton }) => {
     const [ hamburger, sethamburger ] = useState(false);
 
@@ -32,14 +33,7 @@ const MyDonations = ({ deleteButton }) => {
                 hamburger && sethamburger(false);
             }}
         >
-            <div className='hamburger-button'>
-                <Icons.Menu
-                    onClick={() => {
-                        sethamburger(true);
-                    }}
-                />
-                <span>My Donations</span>
-            </div>
+            <HamburgerButton sethamburger={sethamburger} title={deleteButton ? 'My Favorites' : 'My Donations'} />
             <AnimatePresence initial={false}>{hamburger && <Hamburger handleBurger={sethamburger} />}</AnimatePresence>
             <div className='donations'>
                 <div className='title'>
