@@ -4,12 +4,46 @@ import * as Icons from "react-feather";
 import Button from "../components/Button";
 import KhaltiCheckout from "khalti-web";
 import Modal from "../components/PaymentConfirmModal";
-//import StripeCheckoutButton from "../components/StripeButton";
+import { loadStripe } from "@stripe/stripe-js";
 
+//import StripeCheckoutButton from "../components/StripeButton";
+const stripePromise = loadStripe(
+  "pk_test_51HZrz3GnrUKx9RrHsMiAgCquBTfdYCfLzyJgysrgZLFPheK6knupQxD8uiq4xLWvj8CCBZaG9psqc1S7johSfqNt00Xkrdpznu"
+);
 const Payment = () => {
   const [active, setactive] = useState(0);
   const [modal, setModal] = useState(false);
 
+  const handleStripe = async (_) => {
+    // Get Stripe.js instance
+    const stripe = await stripePromise;
+    // Call your backend to create the Checkout Session
+    const response = await fetch(
+      `http://localhost:8000/payment/stripe-session`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }, // this line is important, if this content-type is not set it wont work
+
+        body: JSON.stringify({
+          amount,
+          success_url: "http://localhost:3000/my-donations",
+          cancel_url: "http://localhost:3000/payment",
+        }),
+      }
+    );
+
+    const session = await response.json();
+
+    // When the customer clicks on the button, redirect them to Checkout.
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+    console.log(result);
+
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
   const amount = 1000;
 
   const config = {
@@ -39,7 +73,7 @@ const Payment = () => {
       case 1:
         break;
       case 2:
-        alert("Stripe khoi randi");
+        handleStripe();
         break;
     }
   };
@@ -70,6 +104,7 @@ const Payment = () => {
             <span>Khalti</span>
             {active === 0 ? <Icons.Check color="green" /> : ""}
           </div>
+
           <div
             onClick={() => {
               if (active === 1) {
@@ -99,8 +134,9 @@ const Payment = () => {
         </div>
       </div>
 
-      {modal && <Modal setModal={setModal} />}
-      <div onClick={() => setModal(true)} className="bottom">
+      {/* {modal && <Modal setModal={setModal} />} */}
+      {/* <div onClick={() => setModal(true)} className="bottom"> */}
+      <div onClick={() => handleDonation()} className="bottom">
         <Button>Donate ${amount}</Button>
       </div>
     </div>
