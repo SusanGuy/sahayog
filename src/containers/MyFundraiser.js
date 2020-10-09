@@ -4,7 +4,6 @@ import Hamburger from "../components/Hamburger";
 import { motion, AnimatePresence } from "framer-motion";
 import moment from "moment";
 import Slider from "../components/Slider";
-import "./MyFundraiser.scss";
 const MyFundraiser = () => {
   const [hamburger, sethamburger] = useState(false);
 
@@ -74,34 +73,35 @@ const MyFundraiser = () => {
       </div>
 
       <div className="fund-cards">
-        {fundraisers.map(({ title, endDate, src, raised, goal, i }) => (
-          <div key={i} className="fund-card">
-            <div className="left">
-              <img src={src} />
-            </div>
-            <div className="middle">
-              <span>{title}</span>
-
-              {<Slider raised={raised} goal={goal} />}
-              <div className="two">
-                <span>{raised}</span>
-                <span style={{ color: "black" }}>of</span>
-                <span>{goal}</span>
-              </div>
-            </div>
-
-            <div className="end">
-              <span>Ends on:</span>
-              <span className="end-date">
-                {" "}
-                {moment(endDate).format("MMM D, YYYY")}
-              </span>
-            </div>
-          </div>
-        ))}
+        {fundraisers.map(({ ...props }) => {
+          return <FundCard {...props} />;
+        })}
       </div>
     </div>
   );
 };
+
+const FundCard = ({ title, endDate, src, raised, goal, i }) => (
+  <div key={i} className="fund-card">
+    <div className="left">
+      <img src={src} />
+    </div>
+    <div className="middle">
+      <span>{title}</span>
+
+      {<Slider raised={raised} goal={goal} />}
+      <div className="two">
+        <span>{raised}</span>
+        <span style={{ color: "black" }}>of</span>
+        <span>{goal}</span>
+      </div>
+    </div>
+
+    <div className="end">
+      <span>Ends on:</span>
+      <span className="end-date"> {moment(endDate).format("MMM D, YYYY")}</span>
+    </div>
+  </div>
+);
 
 export default MyFundraiser;
