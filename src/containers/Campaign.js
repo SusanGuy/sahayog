@@ -64,6 +64,7 @@ const ImageDiv = ({ imageURLArray, height, setTop, setActive, history }) => {
 };
 
 const FloatingDiv = ({
+  id,
   comments,
   goal,
   createdAt,
@@ -76,11 +77,13 @@ const FloatingDiv = ({
   setHeight,
   setActive,
   active,
+  history,
 }) => {
   const Enum = {
     Story: 1,
     Comments: 2,
   };
+
   const [content, setContent] = useState(Enum.Story);
   const raisedMoney =
     donations && donations.reduce((init, current) => init + current.amount, 0);
@@ -93,11 +96,38 @@ const FloatingDiv = ({
     setContent(num);
   };
 
+  const [bookmarked, setBookmarked] = useState(false);
+
+  useEffect(() => {
+    if (
+      creator &&
+      creator.favorites.find(({ cause }) => {
+        console.log(cause, id);
+        return cause.toString() === id.toString();
+      })
+    ) {
+      setBookmarked(true);
+    }
+  }, [setBookmarked, creator, id]);
+
+  const handleBookMark = async () => {
+    try {
+      if (!bookmarked) {
+        await axios.post(`/users/addFavorites/${id}`);
+        history.push("/my-favorites");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="floating_div">
-      <div className="bookmark">
-        <Icons.Bookmark size="3rem" color="white" fill="white" />
-      </div>
+      {!bookmarked && (
+        <div onClick={handleBookMark} className="bookmark">
+          <Icons.Bookmark size="3rem" color="white" fill="white" />
+        </div>
+      )}
       <motion.div
         animate={{
           rotate: active ? 180 : 0,
@@ -120,7 +150,7 @@ const FloatingDiv = ({
       <h1>{title}</h1>
       <div className="campaign-info">
         <span className="organizer">
-          Organized by <span className="name">Sushant Baskota</span>
+          Organized by <span className="name">{creator && creator.name}</span>
         </span>
         <span className="date">
           <span className="day">
@@ -264,6 +294,7 @@ const Campaign = ({ history }) => {
         setActive={setActive}
       />
       <FloatingDiv
+        id={campaign._id}
         comments={campaign.comments}
         creator={campaign.creator}
         createdAt={campaign.createdAt}
@@ -276,6 +307,7 @@ const Campaign = ({ history }) => {
         setActive={setActive}
         top={top}
         setHeight={handleHeightChange}
+        history={history}
       />
       {
         <ButtonContainer
