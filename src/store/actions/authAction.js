@@ -36,8 +36,6 @@ export const signup = (name, email, password, history) => {
 export const loadUser = () => {
   return async (dispatch) => {
     try {
-      setAuthToken(localStorage.token);
-
       const { data } = await axios.get("/users/me");
       dispatch(userLoaded(localStorage.token, data));
     } catch (err) {
@@ -71,12 +69,4 @@ const logout = () => {
   return {
     type: AUTH_LOGOUT,
   };
-};
-
-const setAuthToken = (token) => {
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } else {
-    delete axios.defaults.headers.common["Authorization"];
-  }
 };

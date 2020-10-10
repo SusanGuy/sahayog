@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as Icons from "react-feather";
 import AuthInput from "../components/AuthInput";
 import { Link } from "react-router-dom";
-import { login, signup } from "../store/actions/auth";
+import { login, signup } from "../store/actions/authAction";
 const Button = ({ children }) => {
   return <button className="auth-main-button">{children}</button>;
 };
@@ -101,8 +101,8 @@ const Auth = ({ login, signup, loading, isAuthenticated, history }) => {
 
 const mapStatetoProps = (state) => {
   return {
-    loading: state.loading,
-    isAuthenticated: state.token !== null,
+    loading: state.auth.loading,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 export default connect(mapStatetoProps, { login, signup })(Auth);

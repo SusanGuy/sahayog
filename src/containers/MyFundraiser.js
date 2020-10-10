@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import moment from "moment";
 import Slider from "../components/Slider";
 import axios from "../axios";
-const MyFundraiser = () => {
-  const [hamburger, sethamburger] = useState(false);
+const MyFundraiser = ({ hamburger, setHamBurger }) => {
   const [state, setState] = useState({
     fundraisers: [],
     loading: true,
@@ -71,11 +70,11 @@ const MyFundraiser = () => {
   return (
     <div
       className="MyFundraisers"
-      onClick={hamburger ? () => sethamburger(false) : () => {}}
+      onClick={hamburger ? () => setHamBurger(false) : () => {}}
     >
-      <HamburgerButton sethamburger={sethamburger} title="My Fundraisers" />
+      <HamburgerButton setHamBurger={setHamBurger} title="My Fundraisers" />
       <AnimatePresence initial={false}>
-        {hamburger && <Hamburger handleBurger={sethamburger} />}
+        {hamburger && <Hamburger handleBurger={setHamBurger} />}
       </AnimatePresence>
       <div className="title">
         <span>Fundraisers</span>
