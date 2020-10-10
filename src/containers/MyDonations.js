@@ -57,7 +57,7 @@ const MyDonations = ({ deleteButton, hamburger, setHamBurger, history }) => {
     return () => {
       mounted = false;
     };
-  }, [deleteDono]);
+  }, [deleteDono, amount, campaignId, deleteButton, donated]);
 
   return (
     <div

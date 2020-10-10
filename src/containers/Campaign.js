@@ -181,7 +181,7 @@ const FloatingDiv = ({
       </div>
 
       <div className="main-content">
-        {content == 1 ? (
+        {content === 1 ? (
           <StoryDescription
             image={creator && `http://localhost:8000${creator.avatar}`}
             name={creator && creator.name}
@@ -230,7 +230,6 @@ const Campaign = ({ history }) => {
         .get(`/causes/${campaign}`)
         .then(({ data }) => {
           if (mounted) {
-            // console.log(data);
             setCampaign(data);
           }
         })
@@ -244,7 +243,7 @@ const Campaign = ({ history }) => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [history]);
 
   const handleHeightChange = () => {
     setTop(!top);

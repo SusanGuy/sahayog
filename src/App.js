@@ -53,7 +53,11 @@ const App = ({
             <Home hamburger={hamBurgerIsVisible} setHamBurger={setHamBurger} />
           )}
         />
-        <PrivateRoute exact path="/new-campaign" component={NewCampaign} />
+        <PrivateRoute
+          exact
+          path="/new-campaign"
+          component={() => <NewCampaign history={history} />}
+        />
         <Route exact path="/campaign/:id" component={Campaign} />
         <PrivateRoute exact path="/donate/:campaignId" component={Donate} />
         <PrivateRoute exact path="/pay/:campaignId" component={Payment} />

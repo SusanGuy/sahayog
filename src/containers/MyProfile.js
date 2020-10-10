@@ -9,10 +9,15 @@ const MyProfile = ({ history, hamburger, setHamBurger, logout, user }) => {
   const [donation, setDonation] = useState(0);
 
   useEffect(() => {
+    let mounted = true;
     axios.get("/users/me/donations").then(({ data }) => {
-      setDonation(data.length);
+      if (mounted) {
+        setDonation(data.length);
+      }
     });
-    return () => {};
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const [avatar, setAvatar] = useState(user && user.avatar);

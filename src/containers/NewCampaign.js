@@ -4,7 +4,7 @@ import * as Icons from "react-feather";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import axios from "../axios";
-const NewCampaign = () => {
+const NewCampaign = ({ history }) => {
   const handleUploadClick = useRef(null);
   const [files, setfiles] = useState([]);
   const [title, settitle] = useState("");
@@ -32,12 +32,10 @@ const NewCampaign = () => {
     Object.keys(body).forEach((key) => {
       formData.append(key, body[key]);
     });
-    console.log(formData);
 
     try {
       setLoading(true);
       const { data } = await axios.post("/causes/");
-      console.log(data);
     } catch (error) {
       setLoading(false);
     }
@@ -47,7 +45,8 @@ const NewCampaign = () => {
     <div className="NewCampaign">
       <div className="title">
         <span>Start New Campaign</span>
-        <Icons.XCircle />
+
+        <Icons.XCircle onClick={() => history.push("/")} />
       </div>
 
       <div className="campaign-form-div">

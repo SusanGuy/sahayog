@@ -979,7 +979,7 @@ $thumb-d: 1.5em;
 
     .new-images {
       display: flex;
-
+      flex-wrap: wrap;
       .new-image-div {
         position: relative;
 
