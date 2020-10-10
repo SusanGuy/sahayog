@@ -2,16 +2,37 @@ import React, { useState, useEffect } from "react";
 import * as Icons from "react-feather";
 import moment from "moment";
 import axios from "../axios";
+import { AnimatePresence } from "framer-motion";
 import ContentLoader from "../components/ContentLoader";
-
+import PaymentConfirmModal from "../components/PaymentConfirmModal";
 const MyDonations = ({ deleteButton, hamburger, setHamBurger, history }) => {
   const [donations, setdonations] = useState([]);
   const [loading, setloading] = useState(true);
   const [deleteDono, setdelete] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [donated, setDonated] = useState(false);
+  const amount = parseInt(
+    new URLSearchParams(history.location.search).get("amount")
+  );
+
+  const campaignId = new URLSearchParams(history.location.search).get(
+    "campaign"
+  );
+
   useEffect(() => {
     let mounted = true;
     setloading(true);
     try {
+      if (campaignId && amount && !donated) {
+        axios
+          .post(`/causes/donate/${campaignId}`, { amount })
+          .then(({ data }) => {
+            if (mounted) {
+              setDonated(true);
+              setModal(true);
+            }
+          });
+      }
       if (deleteButton) {
         axios.get("users/favorites").then((data) => {
           if (mounted) {
@@ -55,6 +76,20 @@ const MyDonations = ({ deleteButton, hamburger, setHamBurger, history }) => {
       </div>
 
       <div className="donations">
+        <AnimatePresence initial={false}>
+          {modal && (
+            <PaymentConfirmModal
+              amount={amount}
+              id={campaignId}
+              closeModal={() => {
+                setModal(false);
+                history.push("/my-donations");
+              }}
+            />
+          )}
+          )
+        </AnimatePresence>
+
         <div className="title">
           <span>{deleteButton ? "Favorites" : "Donations"}</span>
         </div>

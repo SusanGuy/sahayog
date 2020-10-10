@@ -140,10 +140,10 @@ const FloatingDiv = ({
         </div>
         <div className="amount">
           <span className="total">
-            ${raisedMoney}
+            Rs. {raisedMoney}
             <span className="percentage">({percentage}%)</span>
           </span>
-          <span className="target">${goal}</span>
+          <span className="target">Rs. {goal}</span>
         </div>
       </div>
       <div className="donors-list">
@@ -192,12 +192,15 @@ const FloatingDiv = ({
   );
 };
 
-const ButtonContainer = ({ history }) => (
+const ButtonContainer = ({ history, id, target }) => (
   <div className="bottom-buttons">
     <div className="share">
       <Icons.Share />
     </div>
-    <Button onClick={() => history.push("/donate/1?target=5000")} width="23rem">
+    <Button
+      onClick={() => history.push(`/donate/${id}?target=${target}`)}
+      width="23rem"
+    >
       Donate
     </Button>
   </div>
@@ -216,7 +219,6 @@ const Campaign = ({ history }) => {
         .get(`/causes/${campaign}`)
         .then(({ data }) => {
           if (mounted) {
-            console.log(data);
             setCampaign(data);
           }
         })
@@ -225,9 +227,6 @@ const Campaign = ({ history }) => {
         });
     } catch (error) {
       history.push("/");
-
-      //   if (mounted) {
-      //   }
     }
 
     return () => {
@@ -265,7 +264,13 @@ const Campaign = ({ history }) => {
         top={top}
         setHeight={handleHeightChange}
       />
-      {<ButtonContainer history={history} />}
+      {
+        <ButtonContainer
+          id={campaign._id}
+          history={history}
+          target={campaign.goal}
+        />
+      }
     </div>
   );
 };

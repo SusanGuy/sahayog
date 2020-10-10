@@ -3,7 +3,8 @@ import BackButton from "../components/BackButton";
 import * as Icons from "react-feather";
 import Button from "../components/Button";
 import KhaltiCheckout from "khalti-web";
-import Modal from "../components/PaymentConfirmModal";
+
+import axios from "../axios";
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
@@ -11,39 +12,33 @@ const stripePromise = loadStripe(
 );
 const Payment = ({ history }) => {
   const [active, setactive] = useState(0);
-  const [modal, setModal] = useState(false);
+
+  const campaignId = history.location.pathname.split("/")[2];
+
+  const amount = parseInt(
+    new URLSearchParams(history.location.search).get("amount")
+  );
 
   const handleStripe = async (_) => {
-    // Get Stripe.js instance
     const stripe = await stripePromise;
-    // Call your backend to create the Checkout Session
-    const response = await fetch(
-      `http://localhost:8000/payment/stripe-session`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" }, // this line is important, if this content-type is not set it wont work
 
-        body: JSON.stringify({
-          amount,
-          success_url: "http://localhost:3000/my-donations",
-          cancel_url: "http://localhost:3000/payment",
-        }),
-      }
-    );
-
-    const session = await response.json();
+    const { data } = await axios.post(`/payment/stripe-session/${campaignId}`, {
+      amount,
+      success_url: `http://localhost:3000/my-donations/?amount=${amount}&campaign=${campaignId}`,
+      cancel_url: "http://localhost:3000/payment",
+    });
 
     // When the customer clicks on the button, redirect them to Checkout.
     const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
+      sessionId: data.id,
     });
+
     console.log(result);
 
     if (result.error) {
       console.log(result.error);
     }
   };
-  const amount = 1000;
 
   const config = {
     publicKey: "test_public_key_5535b5e015834104bdd1b24d62e2ec02",
@@ -83,7 +78,7 @@ const Payment = ({ history }) => {
       <div className="amount">
         <span>Amount</span>
         <div className="amount-right">
-          <span className="money">${amount}</span>
+          <span className="money">Rs.{amount}</span>
           <Icons.ChevronDown size="1.2rem" />
         </div>
       </div>
@@ -136,7 +131,7 @@ const Payment = ({ history }) => {
       {/* {modal && <Modal setModal={setModal} />} */}
       {/* <div onClick={() => setModal(true)} className="bottom"> */}
       <div onClick={() => handleDonation()} className="bottom">
-        <Button>Donate ${amount}</Button>
+        <Button>Donate Rs.{amount}</Button>
       </div>
     </div>
   );

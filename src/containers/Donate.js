@@ -9,6 +9,8 @@ import Switcher from "../components/Switcher";
 import * as Icons from "react-feather";
 
 const Donate = ({ history }) => {
+  const campaignId = history.location.pathname.split("/")[2];
+
   const target = parseInt(
     new URLSearchParams(history.location.search).get("target")
   );
@@ -84,8 +86,11 @@ const Donate = ({ history }) => {
         )}
       </div>
       <div className="button-container">
-        <Button onClick={() => history.push("/pay/1")} height="100%">
-          Donate &nbsp;<span style={{ fontWeight: "bolder" }}>$</span>
+        <Button
+          onClick={() => history.push(`/pay/${campaignId}?amount=${donation}`)}
+          height="100%"
+        >
+          Donate &nbsp;<span style={{ fontWeight: "bolder" }}>Rs.</span>
           <CountHook donation={donation} previous={previous} />
         </Button>
       </div>
@@ -124,7 +129,7 @@ const NumpadWrapper = ({ donation, changeDonation, slider, setSlider }) => {
   return (
     <div className="numpad-wrapper">
       <div className="top-header">
-        <h2>${donation}</h2>
+        <h2>Rs.{donation}</h2>
         <Switcher slider={slider} setSlider={setSlider} />
       </div>
       <div className="numpad">
@@ -171,7 +176,8 @@ const SliderWrapper = ({
         <h2 style={{ fontWeight: 400 }}>Donate</h2>
         <div className="donation-header">
           <h1>
-            $<CountHook donation={donation} previous={previous} />
+            Rs.
+            <CountHook donation={donation} previous={previous} />
           </h1>
           <Switcher slider={slider} setSlider={setSlider} />
         </div>
@@ -191,8 +197,8 @@ const SliderWrapper = ({
         />
 
         <div className="donation-detail">
-          <span>$0</span>
-          <span>${numeral(target).format("0.a")}</span>
+          <span>Rs.0</span>
+          <span>Rs.{numeral(target).format("0.a")}</span>
         </div>
       </div>
     </Fragment>
