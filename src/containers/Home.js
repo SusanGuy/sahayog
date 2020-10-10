@@ -18,7 +18,7 @@ const FundCards = ({ hero, history }) => {
           0
         );
 
-        const image = images[0].image;
+        const image = images[0] ? images[0].image : "";
         return (
           <div
             onClick={() => history.push(`/campaign/${_id}`)}
