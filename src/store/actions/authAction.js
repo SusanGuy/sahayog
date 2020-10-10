@@ -1,5 +1,7 @@
 import axios from "../../axios";
+import { setAuthToken } from "../../utils";
 import { USER_LOADED, AUTH_START, AUTH_SUCCESS, AUTH_LOGOUT } from "../type";
+
 export const login = (email, password, history) => {
   return async (dispatch) => {
     try {
@@ -36,6 +38,7 @@ export const signup = (name, email, password, history) => {
 export const loadUser = () => {
   return async (dispatch) => {
     try {
+      setAuthToken(localStorage.token);
       const { data } = await axios.get("/users/me");
       dispatch(userLoaded(localStorage.token, data));
     } catch (err) {

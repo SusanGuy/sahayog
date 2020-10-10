@@ -35,7 +35,7 @@ const Auth = ({ login, signup, loading, isAuthenticated, history }) => {
         return login(email, password, history);
       }
 
-      signup(email, password, history);
+      signup(name, email, password, history);
     } catch (error) {
       console.log(error);
     }

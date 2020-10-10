@@ -73,9 +73,7 @@ const MyFundraiser = ({ hamburger, setHamBurger }) => {
       onClick={hamburger ? () => setHamBurger(false) : () => {}}
     >
       <HamburgerButton setHamBurger={setHamBurger} title="My Fundraisers" />
-      <AnimatePresence initial={false}>
-        {hamburger && <Hamburger handleBurger={setHamBurger} />}
-      </AnimatePresence>
+
       <div className="title">
         <span>Fundraisers</span>
       </div>

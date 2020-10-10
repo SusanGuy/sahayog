@@ -20,7 +20,13 @@ import { withRouter } from "react-router-dom";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
-const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
+const App = ({
+  history,
+  loadUser,
+  isAuthenticated,
+  hamBurgerIsVisible,
+  setHamBurger,
+}) => {
   useEffect(() => {
     loadUser();
   }, [loadUser]);
@@ -30,8 +36,8 @@ const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
         {hamBurgerIsVisible && (
           <Hamburger
             history={history}
-            hamburger={hamBurgerIsVisible}
             setHamBurger={setHamBurger}
+            isAuthenticated={isAuthenticated}
           />
         )}
       </AnimatePresence>
@@ -96,6 +102,7 @@ const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
 const mapStatetoProps = (state) => {
   return {
     hamBurgerIsVisible: state.hamBurger.hamBurgerIsVisible,
+    isAuthenticated: state.auth.user != null,
   };
 };
 

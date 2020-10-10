@@ -5,34 +5,38 @@ import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import "./Hamburger.scss";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { setHamBurger } from "../store/actions/hamburgerAction";
 
-const menus = {
-  HOME: { icon: <Icons.Home />, title: "Home", link: "/" },
-  DONATION: {
-    icon: <Icons.Plus />,
-    title: "My Donations",
-    link: "/my-donations",
-  },
-  CONTRIBUTION: {
-    icon: <Icons.Smile />,
-    title: "My Fundraisers",
-    link: "/my-fundraisers",
-  },
-  FAVORITE: {
-    icon: <Icons.Star />,
-    title: "My Favorites",
-    link: "/my-favorites",
-  },
+const Hamburger = ({ history, setHamBurger, isAuthenticated }) => {
+  const menus = () => {
+    if (!isAuthenticated) {
+      return { HOME: { icon: <Icons.Home />, title: "Home", link: "/" } };
+    }
+    return {
+      HOME: { icon: <Icons.Home />, title: "Home", link: "/" },
+      DONATION: {
+        icon: <Icons.Plus />,
+        title: "My Donations",
+        link: "/my-donations",
+      },
+      CONTRIBUTION: {
+        icon: <Icons.Smile />,
+        title: "My Fundraisers",
+        link: "/my-fundraisers",
+      },
+      FAVORITE: {
+        icon: <Icons.Star />,
+        title: "My Favorites",
+        link: "/my-favorites",
+      },
 
-  PROFILE: {
-    icon: <Icons.Headphones />,
-    title: "My Profile",
-    link: "/my-profile",
-  },
-};
-const Hamburger = ({ history, hamburger, setHamBurger }) => {
+      PROFILE: {
+        icon: <Icons.Headphones />,
+        title: "My Profile",
+        link: "/my-profile",
+      },
+    };
+  };
+
   const active = useLocation().pathname;
 
   return (
@@ -74,8 +78,8 @@ const Hamburger = ({ history, hamburger, setHamBurger }) => {
           transition={{ duration: 0.5 }}
           className="hamburger-items"
         >
-          {Object.keys(menus).map((key) => {
-            const { title, icon, link } = menus[key];
+          {Object.keys(menus()).map((key) => {
+            const { title, icon, link } = menus()[key];
             return (
               <div
                 key={link}
@@ -92,9 +96,10 @@ const Hamburger = ({ history, hamburger, setHamBurger }) => {
               </div>
             );
           })}
+
           <div className="authentication-status">
             <AuthButton onClick={() => history.push("/login")}>
-              Log In/ Signup
+              {!isAuthenticated ? "Log In/ Signup" : "Logout"}
             </AuthButton>
           </div>
         </motion.div>
@@ -103,10 +108,4 @@ const Hamburger = ({ history, hamburger, setHamBurger }) => {
   );
 };
 
-const mapStatetoProps = (state) => {
-  return {
-    hamburger: state.hamBurger.hamburger,
-  };
-};
-
-export default connect(mapStatetoProps, { setHamBurger })(Hamburger);
+export default Hamburger;
