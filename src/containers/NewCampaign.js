@@ -3,17 +3,44 @@ import DatePicker from "react-datepicker";
 import * as Icons from "react-feather";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import axios from "../axios";
 const NewCampaign = () => {
   const handleUploadClick = useRef(null);
   const [files, setfiles] = useState([]);
-  const [campName, setcampName] = useState("");
-  const [campStory, setcampStory] = useState("");
-  const [campGoal, setcampGoal] = useState(0);
+  const [title, settitle] = useState("");
+  const [description, setdescription] = useState("");
+  const [goal, setgoal] = useState(0);
   const [endDate, setendDate] = useState(moment().add(5, "days").toDate());
   const [uploadFiles, setuploadfiles] = useState([]);
+  const [loading, setLoading] = useState(false);
   const handleFileChange = (e) => {
     setuploadfiles([...uploadFiles, e.target.files[0]]);
     setfiles([...files, URL.createObjectURL(e.target.files[0])]);
+  };
+
+  const handleCreateFundRaiser = async () => {
+    const formData = new FormData();
+    uploadFiles.forEach((file) => {
+      formData.append("file", file);
+    });
+    const body = {
+      goal,
+      title,
+      description,
+      endDate,
+    };
+    Object.keys(body).forEach((key) => {
+      formData.append(key, body[key]);
+    });
+    console.log(formData);
+
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/causes/");
+      console.log(data);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (
@@ -28,8 +55,8 @@ const NewCampaign = () => {
           <label>Campaign Name</label>
           <input
             type="text"
-            onChange={(e) => setcampName(e.target.value)}
-            value={campName}
+            onChange={(e) => settitle(e.target.value)}
+            value={title}
           />
         </div>
         <div className="input-div">
@@ -37,16 +64,16 @@ const NewCampaign = () => {
           <textarea
             width="100%"
             type="textarea"
-            onChange={(e) => setcampStory(e.target.value)}
-            value={campStory}
+            onChange={(e) => setdescription(e.target.value)}
+            value={description}
           />
         </div>
         <div className="input-div">
           <label>Campaign Goal</label>
           <input
             type="number"
-            onChange={(e) => setcampGoal(e.target.value)}
-            value={campGoal}
+            onChange={(e) => setgoal(e.target.value)}
+            value={goal}
           />
         </div>
         <div className="input-div">
@@ -110,7 +137,12 @@ const NewCampaign = () => {
         </div>
 
         <div className="submit-button-div">
-          <button className="submit-button">Submit</button>
+          <button
+            onClick={() => handleCreateFundRaiser()}
+            className="submit-button"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>

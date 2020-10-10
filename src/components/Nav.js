@@ -1,7 +1,7 @@
 import React from "react";
 import * as Icons from "react-feather";
-
-const Nav = ({ scroll, hamburger }) => {
+import { connect } from "react-redux";
+const Nav = ({ scroll, hamburger, isAuthenticated, avatar }) => {
   return (
     <nav className={`${!scroll ? "nav" : "nav nav-sticky"}`}>
       <div className="searchbar">
@@ -14,9 +14,16 @@ const Nav = ({ scroll, hamburger }) => {
         <input type="text" placeholder="Find campaign, charities" />
         <Icons.Search />
       </div>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Michelle_Borromeo_Actor_Headshots_30.jpg" />
+      {isAuthenticated && <img src={`http://localhost:8000${avatar}`} />}
     </nav>
   );
 };
 
-export default Nav;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    avatar: state.auth.user && state.auth.user.avatar,
+  };
+};
+
+export default connect(mapStateToProps)(Nav);
