@@ -154,17 +154,18 @@ const FloatingDiv = ({
         <span className="title">Recent Donors</span>
         <div className="donors">
           {donations &&
-            donations.map((donation, i) => {
-              if (i > 5) return;
-              return (
-                <img
-                  key={donation._id}
-                  src={`http://localhost:8000${donation.user.avatar}`}
-                />
-              );
-            })}
+            donations
+              .filter((donation, index) => index < 5)
+              .map((donation) => {
+                return (
+                  <img
+                    key={donation._id}
+                    src={`http://localhost:8000${donation.user.avatar}`}
+                  />
+                );
+              })}
           {donations && donations.length > 5 && (
-            <div>{donations.length - 5}</div>
+            <div>+{donations.length - 5}</div>
           )}
         </div>
       </div>
