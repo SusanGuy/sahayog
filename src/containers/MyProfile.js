@@ -30,14 +30,14 @@ const MyProfile = ({ history, hamburger, setHamBurger }) => {
                 <HamburgerButton setHamBurger={setHamBurger} />
                 <div className='banner'>
                     <div className='avatar-overlay' />
-                    <img src={`http://locahost:8000/${user.avatar}`} />
+                    <img src={`http://localhost:8000${user.avatar}`} />
                 </div>
                 <div className='sexyDiv'>
                     <div className='avatar'>
                         <span className='add'>
                             <Icons.PlusCircle color='white' />
                         </span>
-                        <img src={`http://locahost:8000/${user.avatar}`} />
+                        <img src={`http://localhost:8000${user.avatar}`} />
                     </div>
                     <div className='top'>
                         <span className='name'>{user.name}</span>
