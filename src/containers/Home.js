@@ -5,7 +5,9 @@ import * as Icons from 'react-feather';
 import Hamburger from '../components/Hamburger';
 import Button from '../components/Button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ContentLoaderHome } from '../components/ContentLoader';
 
+import axios from '../axios';
 const hero = [
     {
         title: 'Help this rainforest recover',
@@ -60,6 +62,14 @@ const Home = ({ history }) => {
     const { location: { pathname } } = history;
     const [ scrolled, setScrolled ] = useState(false);
     const [ hamburger, sethamburger ] = useState(false);
+    const [ users, setusers ] = useState(null);
+    useEffect(async () => {
+        console.log('hero');
+        setTimeout(async () => {
+            const { data } = await axios.get('/users/');
+            setusers(data);
+        }, 2000);
+    }, []);
 
     useEffect(
         (_) => {
@@ -96,15 +106,19 @@ const Home = ({ history }) => {
                     }}
                 />
             }
-            <main>
-                <div className='headers' style={{ marginTop: scrolled ? '10rem' : '' }}>
-                    <div className='title'>Trending</div>
-                    <div className='more'>MORE</div>
-                </div>
+            {users ? (
+                <main>
+                    <div className='headers' style={{ marginTop: scrolled ? '10rem' : '' }}>
+                        <div className='title'>Trending</div>
+                        <div className='more'>MORE</div>
+                    </div>
 
-                <FundCards history={history} hero={hero} />
-                <FundCards history={history} hero={hero} />
-            </main>
+                    <FundCards history={history} hero={hero} />
+                    <FundCards history={history} hero={hero} />
+                </main>
+            ) : (
+                <ContentLoaderHome />
+            )}
             <Button
                 onClick={() => history.push('/new-campaign')}
                 position='fixed'
