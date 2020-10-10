@@ -20,9 +20,11 @@ const NewCampaign = ({ history }) => {
 
   const handleCreateFundRaiser = async () => {
     const formData = new FormData();
+
     uploadFiles.forEach((file) => {
-      formData.append("file", file);
+      formData.append("files", file);
     });
+
     const body = {
       goal,
       title,
@@ -35,7 +37,8 @@ const NewCampaign = ({ history }) => {
 
     try {
       setLoading(true);
-      const { data } = await axios.post("/causes/");
+      const { data } = await axios.post("/causes/", formData);
+      history.push("/my-fundraisers");
     } catch (error) {
       setLoading(false);
     }
@@ -45,8 +48,7 @@ const NewCampaign = ({ history }) => {
     <div className="NewCampaign">
       <div className="title">
         <span>Start New Campaign</span>
-
-        <Icons.XCircle onClick={() => history.push("/")} />
+        <Icons.XCircle />
       </div>
 
       <div className="campaign-form-div">
