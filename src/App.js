@@ -11,6 +11,7 @@ import Donate from './containers/Donate';
 import Payment from './containers/Payment';
 import MyFundraiser from './containers/MyFundraiser';
 import Home from './containers/Home';
+import MyProfile from './containers/MyProfile';
 import { Switch, Route } from 'react-router-dom';
 import MyDonations from './containers/MyDonations';
 import NewCampaign from './containers/NewCampaign';
@@ -59,6 +60,13 @@ const App = ({ history, loadUser, isAuthenticated, hamBurgerIsVisible, setHamBur
                     exact
                     path='/signup'
                     component={() => <Auth hamburger={hamBurgerIsVisible} setHamBurger={setHamBurger} />}
+                />
+                <PrivateRoute
+                    exact
+                    path='/my-profile'
+                    component={() => (
+                        <MyProfile hamburger={hamBurgerIsVisible} setHamBurger={setHamBurger} history={history} />
+                    )}
                 />
                 <PrivateRoute
                     exact
