@@ -7,7 +7,7 @@ import { Swipeable } from "react-swipeable";
 import { motion } from "framer-motion";
 import Slider from "../components/Slider";
 import BackButton from "../components/BackButton";
-import Comments from "../components/Comments";
+import Comment from "../components/Comments";
 import axios from "../axios";
 const ImageDiv = ({ imageURLArray, height, setTop, setActive, history }) => {
   const IMG_1 = `https://unsplash.it/342/249`;
@@ -70,7 +70,10 @@ const ImageDiv = ({ imageURLArray, height, setTop, setActive, history }) => {
 };
 
 const FloatingDiv = ({
+  comments,
   goal,
+  createdAt,
+  creator,
   title,
   description,
   donations,
@@ -140,10 +143,11 @@ const FloatingDiv = ({
         </div>
         <div className="amount">
           <span className="total">
-            ${raisedMoney}
+            Rs.{raisedMoney}
             <span className="percentage">({percentage}%)</span>
           </span>
-          <span className="target">${goal}</span>
+
+          <span className="target">Rs.{goal}</span>
         </div>
       </div>
       <div className="donors-list">
@@ -173,19 +177,28 @@ const FloatingDiv = ({
           onClick={() => handleContentClick(Enum.Comments)}
           className={`updates ${content === Enum.Comments ? "active" : ""}`}
         >
-          Comments <span className="grey-out">(69)</span>
+          Comments{" "}
+          <span className="grey-out">{comments && comments.length}</span>
         </span>
       </div>
 
       <div className="main-content">
         {content == 1 ? (
           <StoryDescription
-            name={"Sushant Baskota"}
-            date={"Today"}
+            image={creator && `http://localhost:8000${creator.avatar}`}
+            name={creator && creator.name}
+            date={moment(createdAt).format("ddd")}
             text={description}
           />
         ) : (
-          <Comments />
+          comments.map((comment) => (
+            <Comment
+              image={`http://localhost:8000${comment.user.avatar}`}
+              name={comment.user.name}
+              text={comment.text}
+              date={comment.date}
+            />
+          ))
         )}
       </div>
     </div>
@@ -216,7 +229,7 @@ const Campaign = ({ history }) => {
         .get(`/causes/${campaign}`)
         .then(({ data }) => {
           if (mounted) {
-            console.log(data);
+            // console.log(data);
             setCampaign(data);
           }
         })
@@ -254,7 +267,9 @@ const Campaign = ({ history }) => {
         setActive={setActive}
       />
       <FloatingDiv
-        campaignData={campaign}
+        comments={campaign.comments}
+        creator={campaign.creator}
+        createdAt={campaign.createdAt}
         goal={campaign.goal}
         title={campaign.title}
         description={campaign.description}
