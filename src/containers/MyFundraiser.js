@@ -9,17 +9,23 @@ const MyFundraiser = ({ hamburger, setHamBurger, history }) => {
     const [ loading, setloading ] = useState(true);
 
     useEffect(() => {
+        let mounted = true;
         try {
-            setloading(true);
-
             axios.get('/causes/me').then(({ data }) => {
-                setFundraisers(data);
-                console.log(data);
-                setloading(false);
+                if (mounted) {
+                    setFundraisers(data);
+                    setloading(false);
+                }
             });
         } catch (error) {
-            setloading(false);
+            if (mounted) {
+                setloading(false);
+            }
         }
+
+        return () => {
+            mounted = false;
+        };
     }, []);
 
     return (

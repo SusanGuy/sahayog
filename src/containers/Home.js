@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import moment from "moment";
 import Nav from "../components/Nav";
 import Slider from "../components/Slider";
 import * as Icons from "react-feather";
@@ -6,80 +7,88 @@ import Button from "../components/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { withRouter } from "react-router-dom";
 import { ContentLoaderHome } from "../components/ContentLoader";
-
 import axios from "../axios";
-const hero = [
-  {
-    title: "Help this rainforest recover",
-    image:
-      "https://www.arcgis.com/sharing/rest/content/items/9ca067092f8b47f68a2bdfe1d36bf72a/resources/1575058013076.jpeg?w=2636",
-    goal: 500000,
-    raised: 369234,
-    daysLeft: 39,
-    favorited: false,
-  },
-  {
-    title: "Help Susan from asthma",
-    image:
-      "https://www.premierhealth.com/images/default-source/women-wisdom-wellness/p-w-mkt60071-attacks-lg.jpg?sfvrsn=a7e285c8_0",
-    goal: 5000,
-    raised: 2000,
-    daysLeft: 39,
-    favorited: true,
-  },
-];
 
-const FundCards = ({ hero }) => (
-  <div className="fundcards">
-    {hero.map(({ title, image, daysLeft, raised, goal }) => (
-      <div key={title} className="fcard">
-        <div className="top">
-          <img src={image} />
-          <div className="img-comp">
-            <span>{`${daysLeft} days left`}</span>
-            <div className="bookmark">
-              <Icons.Bookmark />
+const FundCards = ({ hero, history }) => {
+  return (
+    <div className="fundcards">
+      {hero.map(({ title, images, donations, endDate, goal, _id }) => {
+        const raised = donations.reduce(
+          (init, current) => init + current.amount,
+          0
+        );
+
+        const image = images[0].image;
+        return (
+          <div
+            onClick={() => history.push(`/campaign/${_id}`)}
+            key={_id}
+            className="fcard"
+          >
+            <div className="top">
+              <img src={`http://localhost:8000${image}`} />
+              <div className="img-comp">
+                <span>{`${moment(endDate).fromNow(true)} left`}</span>
+                <div className="bookmark">
+                  <Icons.Bookmark />
+                </div>
+              </div>
+            </div>
+            <div className="bottom">
+              <span className="fundname">{title}</span>
+              <Slider raised={raised} goal={goal} />
+              <div className="raised-text">
+                <span>Total Raised</span>
+                <span style={{ fontWeight: 600 }}>
+                  Rs. &nbsp;
+                  {`${raised} (${Math.floor((raised * 100) / goal)}%)`}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="bottom">
-          <span className="fundname">{title}</span>
-          <Slider />
-          <div className="raised-text">
-            <span>Total Raised</span>
-            <span style={{ fontWeight: 600 }}>
-              Rs. &nbsp;
-              {`${raised} (${Math.floor((raised * 100) / goal)}%)`}
-            </span>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-);
+        );
+      })}
+    </div>
+  );
+};
 
 const Home = ({ history, hamburger, hamBurgerIsVisible, setHamBurger }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [fetched, setFetched] = useState(false);
+  const [causes, setCauses] = useState([]);
 
-  useEffect(
-    (_) => {
-      document.body.style.overflow = !hamBurgerIsVisible && "scroll";
+  useEffect(() => {
+    let mounted = true;
+    document.body.style.overflow = !hamBurgerIsVisible && "scroll";
 
-      const handleScroll = (_) => {
-        if (window.pageYOffset > 1) {
-          setScrolled(true);
-        } else {
-          setScrolled(false);
+    const handleScroll = (_) => {
+      if (window.pageYOffset > 1) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    document.addEventListener("scroll", handleScroll);
+
+    try {
+      axios.get("/causes/").then(({ data }) => {
+        if (mounted) {
+          setCauses(data);
+          setFetched(true);
         }
-      };
-      window.addEventListener("scroll", handleScroll);
-      return (_) => {
-        document.body.style.overflow = "hidden";
-        window.removeEventListener("scroll", handleScroll);
-      };
-    },
-    [hamBurgerIsVisible]
-  );
+      });
+    } catch (error) {
+      if (mounted) {
+        setFetched(true);
+      }
+    }
+
+    return (_) => {
+      document.body.style.overflow = "hidden";
+      document.removeEventListener("scroll", handleScroll);
+      mounted = false;
+    };
+  }, [hamBurgerIsVisible]);
   return (
     <div onClick={() => hamburger && setHamBurger(false)} className="Home">
       <AnimatePresence initial={false}></AnimatePresence>
@@ -96,9 +105,11 @@ const Home = ({ history, hamburger, hamBurgerIsVisible, setHamBurger }) => {
           <div className="title">Trending</div>
           <div className="more">MORE</div>
         </div>
-
-        <FundCards history={history} hero={hero} />
-        <FundCards history={history} hero={hero} />
+        {fetched ? (
+          <FundCards history={history} hero={causes} />
+        ) : (
+          <ContentLoaderHome />
+        )}
       </main>
       )
       <Button
