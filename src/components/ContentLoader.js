@@ -7,6 +7,7 @@ const ContentLoaderP = () => {
         <ContentLoader
           height={100}
           speed={1}
+          key={Math.random()}
           backgroundColor={"#fff"}
           foregroundColor={"#ccc"}
           viewBox="0 0 380 70"

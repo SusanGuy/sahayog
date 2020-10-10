@@ -27,7 +27,7 @@ const MyFundraiser = ({ hamburger, setHamBurger }) => {
                 <ContentLoaderP />
             ) : (
                 <div className='fund-cards'>
-                    {fundraisers.map(({ endDate, title, images, donations, goal }) => {
+                    {fundraisers.map(({ endDate, title, images, donations, goal, _id }) => {
                         return (
                             <FundCard
                                 endDate={endDate}
@@ -35,6 +35,7 @@ const MyFundraiser = ({ hamburger, setHamBurger }) => {
                                 src={images[0].image}
                                 raised={donations.length === 0 ? 0 : donations.reduce((a, c) => a + c.amount, 0)}
                                 goal={goal}
+                                i={_id}
                             />
                         );
                     })}
