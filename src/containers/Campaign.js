@@ -199,7 +199,7 @@ const FloatingDiv = ({
               image={`http://localhost:8000${comment.user.avatar}`}
               name={comment.user.name}
               text={comment.text}
-              date={comment.date}
+              date={moment(comment.date).format("ddd")}
             />
           ))
         )}

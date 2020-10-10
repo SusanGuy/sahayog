@@ -2,13 +2,15 @@ import React from "react";
 import "./Comments.scss";
 const Comment = ({ image, name, date, text }) => {
   return (
-    <div className="comment-card">
-      <div className="commenter-info">
-        <img src={image} />
-        <span className="name">{name}</span>
-        <span className="date">{date}</span>
+    <div className="comments">
+      <div className="comment-card">
+        <div className="commenter-info">
+          <img src={image} />
+          <span className="name">{name}</span>
+          <span className="date">{date}</span>
+        </div>
+        <span className="comment">{text}</span>
       </div>
-      <span className="comment">{text}</span>
     </div>
   );
 };
