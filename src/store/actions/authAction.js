@@ -1,5 +1,6 @@
 import axios from "../../axios";
 import history from "../history";
+import { setAuthToken } from "../../utils";
 import { USER_LOADED, AUTH_START, AUTH_SUCCESS, AUTH_LOGOUT } from "../type";
 export const login = (email, password) => {
   return async (dispatch) => {
@@ -38,7 +39,6 @@ export const loadUser = () => {
   return async (dispatch) => {
     try {
       setAuthToken(localStorage.token);
-
       const { data } = await axios.get("/users/me");
       dispatch(userLoaded(localStorage.token, data));
     } catch (err) {
@@ -71,12 +71,4 @@ const logout = () => {
   return {
     type: AUTH_LOGOUT,
   };
-};
-
-const setAuthToken = (token) => {
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } else {
-    delete axios.defaults.headers.common["Authorization"];
-  }
 };

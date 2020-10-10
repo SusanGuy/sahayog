@@ -1,12 +1,12 @@
 import React from "react";
 import * as Icons from "react-feather";
 import "./HamburgerButton.scss";
-const HamburgerButton = ({ title, sethamburger }) => {
+const HamburgerButton = ({ title, setHamBurger }) => {
   return (
     <div className="hamburger-button">
       <Icons.Menu
         onClick={() => {
-          sethamburger(true);
+          setHamBurger(true);
         }}
       />
       <span>{title}</span>

@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import "./Hamburger.scss";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { setHamBurger } from "../store/actions/hamburgerAction";
+import history from "../store/history";
 const menus = {
   HOME: { icon: <Icons.Home />, title: "Home", link: "/" },
   DONATION: {
@@ -29,7 +32,7 @@ const menus = {
     link: "/my-profile",
   },
 };
-const Hamburger = ({ handleBurger, history }) => {
+const Hamburger = ({ hamburger, setHamBurger }) => {
   const active = useLocation().pathname;
 
   return (
@@ -47,7 +50,7 @@ const Hamburger = ({ handleBurger, history }) => {
         <div
           className="hamburger-cross"
           onClick={() => {
-            handleBurger(false);
+            setHamBurger(false);
           }}
         >
           <Icons.X />
@@ -77,7 +80,7 @@ const Hamburger = ({ handleBurger, history }) => {
               <div
                 key={link}
                 onClick={() => {
-                  handleBurger(false);
+                  setHamBurger(false);
                   // setactive(link);
                 }}
                 className={`hamburger-item ${active === link ? "active" : ""}`}
@@ -100,7 +103,10 @@ const Hamburger = ({ handleBurger, history }) => {
   );
 };
 
+const mapStatetoProps = (state) => {
+  return {
+    hamburger: state.hamBurger.hamburger,
+  };
+};
 
-
-
-export default Hamburger;
+export default connect(mapStatetoProps, { setHamBurger })(Hamburger);
