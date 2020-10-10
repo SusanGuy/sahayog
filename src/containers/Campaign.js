@@ -9,6 +9,8 @@ import Slider from "../components/Slider";
 import BackButton from "../components/BackButton";
 import Comment from "../components/Comments";
 import axios from "../axios";
+import { connect } from "react-redux";
+import { loadUser } from "../store/actions/authAction";
 const ImageDiv = ({ imageURLArray, height, setTop, setActive, history }) => {
   const RIGHT = "-1";
   const LEFT = "+1";
@@ -78,6 +80,8 @@ const FloatingDiv = ({
   setActive,
   active,
   history,
+  user,
+  loadUser,
 }) => {
   const Enum = {
     Story: 1,
@@ -96,18 +100,11 @@ const FloatingDiv = ({
     setContent(num);
   };
 
-  const [bookmarked, setBookmarked] = useState(false);
-
   useEffect(() => {
-    if (
-      creator &&
-      creator.favorites.find(({ cause }) => {
-        return cause.toString() === id.toString();
-      })
-    ) {
-      setBookmarked(true);
-    }
-  }, [setBookmarked, creator, id]);
+    loadUser();
+  }, [loadUser]);
+
+  const bookmarked = user && user.favorites.find(({ cause }) => cause === id);
 
   const handleBookMark = async () => {
     try {
@@ -246,7 +243,7 @@ const ButtonContainer = ({ history, id, target }) => (
   </div>
 );
 
-const Campaign = ({ history }) => {
+const Campaign = ({ history, user, loadUser }) => {
   const [top, setTop] = useState(false);
   const [active, setActive] = useState(false);
   const [campaign, setCampaign] = useState({});
@@ -304,6 +301,8 @@ const Campaign = ({ history }) => {
         endDate={campaign.endDate}
         active={active}
         setActive={setActive}
+        user={user}
+        loadUser={loadUser}
         top={top}
         setHeight={handleHeightChange}
         history={history}
@@ -318,5 +317,10 @@ const Campaign = ({ history }) => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+  };
+};
 
-export default Campaign;
+export default connect(mapStateToProps, { loadUser })(Campaign);
