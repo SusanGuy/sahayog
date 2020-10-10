@@ -48,7 +48,7 @@ const NewCampaign = ({ history }) => {
     <div className="NewCampaign">
       <div className="title">
         <span>Start New Campaign</span>
-        <Icons.XCircle />
+        <Icons.XCircle onClick={() => history.push("/")} />
       </div>
 
       <div className="campaign-form-div">
