@@ -4,7 +4,7 @@ import * as Icons from 'react-feather';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import axios from '../axios';
-const NewCampaign = () => {
+const NewCampaign = ({ history }) => {
     const handleUploadClick = useRef(null);
     const [ files, setfiles ] = useState([]);
     const [ title, settitle ] = useState('');
@@ -25,7 +25,6 @@ const NewCampaign = () => {
             formData.append('files', file);
         });
 
-        console.log(formData);
         const body = {
             goal,
             title,
@@ -36,14 +35,10 @@ const NewCampaign = () => {
             formData.append(key, body[key]);
         });
 
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
-
         try {
             setLoading(true);
             const { data } = await axios.post('/causes/', formData);
-            console.log(data);
+            history.push('/my-fundraisers');
         } catch (error) {
             setLoading(false);
         }
