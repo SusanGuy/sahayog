@@ -1,115 +1,70 @@
-import React, { useState, useEffect } from "react";
-import HamburgerButton from "../components/HamburgerButton";
-import Hamburger from "../components/Hamburger";
-import { motion, AnimatePresence } from "framer-motion";
-import moment from "moment";
-import Slider from "../components/Slider";
-import axios from "../axios";
+import React, { useState, useEffect } from 'react';
+import HamburgerButton from '../components/HamburgerButton';
+import moment from 'moment';
+import Slider from '../components/Slider';
+import axios from '../axios';
+import ContentLoaderP from '../components/ContentLoader';
 const MyFundraiser = ({ hamburger, setHamBurger }) => {
-  const [state, setState] = useState({
-    fundraisers: [],
-    loading: true,
-  });
+    const [ fundraisers, setFundraisers ] = useState(null);
+    const [ loading, setloading ] = useState(true);
 
-  useEffect(() => {
-    axios.get("/causes/me").then((data) => console.log(data));
-  }, []);
+    useEffect(async () => {
+        setloading(true);
+        const { data } = await axios.get('/causes/me');
+        setFundraisers(data);
+        setloading(false);
+    }, []);
 
-  const fundraisers = [
-    {
-      title: "yo chai title ho",
-      src:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7jPPPDwghudK3gqQK8XxKOuyfQoB1brFLqA&usqp=CAU",
-      raised: 5000,
-      goal: 10000,
-      endDate: new Date(),
-    },
+    return (
+        <div className='MyFundraisers' onClick={hamburger ? () => setHamBurger(false) : () => {}}>
+            <HamburgerButton setHamBurger={setHamBurger} title='My Fundraisers' />
 
-    {
-      title: "yo chai title ho",
-      src:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7jPPPDwghudK3gqQK8XxKOuyfQoB1brFLqA&usqp=CAU",
-      raised: 5000,
-      goal: 10000,
-      endDate: new Date(),
-    },
-    {
-      title: "yo chai title ho",
-      src:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7jPPPDwghudK3gqQK8XxKOuyfQoB1brFLqA&usqp=CAU",
-      raised: 5000,
-      goal: 10000,
-      endDate: new Date(),
-    },
-    {
-      title: "yo chai title ho",
-      src:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7jPPPDwghudK3gqQK8XxKOuyfQoB1brFLqA&usqp=CAU",
-      raised: 5000,
-      goal: 10000,
-      endDate: new Date(),
-    },
-    {
-      title:
-        "yo chai title hoaskdhasdklfhqsdkjlfhsadkljfhaskdljfhasdlkjfhsadkljhsadkjfh",
-      src:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7jPPPDwghudK3gqQK8XxKOuyfQoB1brFLqA&usqp=CAU",
-      raised: 6000,
-      goal: 10000,
-      endDate: new Date(),
-    },
-    {
-      title: "yo chai title ho",
-      src:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7jPPPDwghudK3gqQK8XxKOuyfQoB1brFLqA&usqp=CAU",
-      raised: 5000,
-      goal: 10000,
-      endDate: new Date(),
-    },
-  ];
-  return (
-    <div
-      className="MyFundraisers"
-      onClick={hamburger ? () => setHamBurger(false) : () => {}}
-    >
-      <HamburgerButton setHamBurger={setHamBurger} title="My Fundraisers" />
-      <AnimatePresence initial={false}>
-        {hamburger && <Hamburger handleBurger={setHamBurger} />}
-      </AnimatePresence>
-      <div className="title">
-        <span>Fundraisers</span>
-      </div>
+            <div className='title'>
+                <span>Fundraisers</span>
+            </div>
 
-      <div className="fund-cards">
-        {fundraisers.map(({ ...props }) => {
-          return <FundCard {...props} />;
-        })}
-      </div>
-    </div>
-  );
+            {loading ? (
+                <ContentLoaderP />
+            ) : (
+                <div className='fund-cards'>
+                    {fundraisers.map(({ endDate, title, images, donations, goal }) => {
+                        return (
+                            <FundCard
+                                endDate={endDate}
+                                title={title}
+                                src={images[0].image}
+                                raised={donations.length === 0 ? 0 : donations.reduce((a, c) => a + c.amount, 0)}
+                                goal={goal}
+                            />
+                        );
+                    })}
+                </div>
+            )}
+        </div>
+    );
 };
 
 const FundCard = ({ title, endDate, src, raised, goal, i }) => (
-  <div key={i} className="fund-card">
-    <div className="left">
-      <img src={src} />
-    </div>
-    <div className="middle">
-      <span>{title}</span>
+    <div key={i} className='fund-card'>
+        <div className='left'>
+            <img src={`http://localhost:8000${src}`} />
+        </div>
+        <div className='middle'>
+            <span>{title}</span>
 
-      {<Slider raised={raised} goal={goal} />}
-      <div className="two">
-        <span>{raised}</span>
-        <span style={{ color: "black" }}>of</span>
-        <span>{goal}</span>
-      </div>
-    </div>
+            {<Slider raised={raised} goal={goal} />}
+            <div className='two'>
+                <span>{raised}</span>
+                <span style={{ color: 'black' }}>of</span>
+                <span>{goal}</span>
+            </div>
+        </div>
 
-    <div className="end">
-      <span>Ends on:</span>
-      <span className="end-date"> {moment(endDate).format("MMM D, YYYY")}</span>
+        <div className='end'>
+            <span>Ends on:</span>
+            <span className='end-date'> {moment(endDate).format('MMM D, YYYY')}</span>
+        </div>
     </div>
-  </div>
 );
 
 export default MyFundraiser;
