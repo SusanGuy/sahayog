@@ -2,7 +2,7 @@ import React from "react";
 import "./StoryDescription.scss";
 const StoryDescription = ({ image, name, date, text }) => {
   return (
-    <div class="StoryDescription">
+    <div className="StoryDescription">
       <div className="comment-card">
         <div className="commenter-info">
           <img src={image} />

@@ -132,7 +132,7 @@ const FloatingDiv = ({
           days left
         </span>
       </div>
-      <Slider goal={10000} raised={5000} />
+      <Slider goal={goal} raised={raisedMoney} />
       <div className="amount-info">
         <div className="amount-title">
           <span>Raised so far</span>
@@ -151,9 +151,14 @@ const FloatingDiv = ({
         <div className="donors">
           {donations &&
             donations.map((donation) => (
-              <img src={`http://localhost:8000${donation.user.avatar}`} />
+              <img
+                key={donation._id}
+                src={`http://localhost:8000${donation.user.avatar}`}
+              />
             ))}
-          <div>1+</div>
+          {donations && donations.length > 5 && (
+            <div>{donations.length - 5}</div>
+          )}
         </div>
       </div>
       <div className="content-title">
