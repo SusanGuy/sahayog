@@ -42,7 +42,6 @@ export const loadUser = () => {
       const { data } = await axios.get("/users/me");
       dispatch(userLoaded(localStorage.token, data));
     } catch (err) {
-      console.log("oe ma ho hai error");
       console.log(err.response ? err.response.data : err.message);
     }
   };
