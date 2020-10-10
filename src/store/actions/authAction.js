@@ -1,8 +1,6 @@
 import axios from "../../axios";
-import history from "../history";
-import { setAuthToken } from "../../utils";
 import { USER_LOADED, AUTH_START, AUTH_SUCCESS, AUTH_LOGOUT } from "../type";
-export const login = (email, password) => {
+export const login = (email, password, history) => {
   return async (dispatch) => {
     try {
       dispatch(authStart());
@@ -13,12 +11,12 @@ export const login = (email, password) => {
       dispatch(authSuccess(token));
       dispatch(loadUser());
       history.push("/");
-    } catch {
-      console.log("Dhoka diyo");
+    } catch (err) {
+      console.log(err.response ? err.response.data : err.message);
     }
   };
 };
-export const signup = (name, email, password) => {
+export const signup = (name, email, password, history) => {
   return async (dispatch) => {
     try {
       dispatch(authStart());
@@ -29,8 +27,8 @@ export const signup = (name, email, password) => {
       dispatch(authSuccess(token));
       dispatch(loadUser());
       history.push("/");
-    } catch {
-      console.log("Dhoka diyo");
+    } catch (err) {
+      console.log(err.response ? err.response.data : err.message);
     }
   };
 };
@@ -38,11 +36,11 @@ export const signup = (name, email, password) => {
 export const loadUser = () => {
   return async (dispatch) => {
     try {
-      setAuthToken(localStorage.token);
       const { data } = await axios.get("/users/me");
       dispatch(userLoaded(localStorage.token, data));
     } catch (err) {
-      console.log("Feri Dhoka diyo");
+      console.log("oe ma ho hai error");
+      console.log(err.response ? err.response.data : err.message);
     }
   };
 };

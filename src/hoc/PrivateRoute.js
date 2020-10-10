@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
     {...rest}
     render={(props) => {
       if (!isAuthenticated) {
-        return <Redirect to="/auth" />;
+        return <Redirect to="/login" />;
       }
 
       return <Component {...props} />;
@@ -17,7 +17,7 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
+    isAuthenticated: state.token !== null,
   };
 };
 

@@ -7,7 +7,7 @@ import "./Hamburger.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setHamBurger } from "../store/actions/hamburgerAction";
-import history from "../store/history";
+
 const menus = {
   HOME: { icon: <Icons.Home />, title: "Home", link: "/" },
   DONATION: {
@@ -32,7 +32,7 @@ const menus = {
     link: "/my-profile",
   },
 };
-const Hamburger = ({ hamburger, setHamBurger }) => {
+const Hamburger = ({ history, hamburger, setHamBurger }) => {
   const active = useLocation().pathname;
 
   return (

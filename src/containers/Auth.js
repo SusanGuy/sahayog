@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import history from "../store/history";
 import * as Icons from "react-feather";
 import AuthInput from "../components/AuthInput";
 import { Link } from "react-router-dom";
@@ -9,8 +8,9 @@ const Button = ({ children }) => {
   return <button className="auth-main-button">{children}</button>;
 };
 
-const Auth = ({ login, signup, loading, isAuthenticated }) => {
+const Auth = ({ login, signup, loading, isAuthenticated, history }) => {
   const isLogin = history.location.pathname === "/login";
+
   let [state, setState] = useState({
     name: "",
     email: "",
@@ -32,10 +32,10 @@ const Auth = ({ login, signup, loading, isAuthenticated }) => {
 
     try {
       if (isLogin) {
-        return login(email, password);
+        return login(email, password, history);
       }
 
-      signup(email, password);
+      signup(email, password, history);
     } catch (error) {
       console.log(error);
     }

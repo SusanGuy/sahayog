@@ -14,17 +14,27 @@ import { Switch, Route } from "react-router-dom";
 import MyDonations from "./containers/MyDonations";
 import NewCampaign from "./containers/NewCampaign";
 import Hamburger from "./components/Hamburger";
+import { AnimatePresence } from "framer-motion";
 import { setHamBurger } from "./store/actions/hamburgerAction";
+import { withRouter } from "react-router-dom";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
-const App = ({ loadUser, hamBurgerIsVisible, setHamBurger }) => {
+const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
   useEffect(() => {
     loadUser();
   }, [loadUser]);
   return (
     <Fragment>
-      {hamBurgerIsVisible && <Hamburger />}
+      <AnimatePresence initial={false}>
+        {hamBurgerIsVisible && (
+          <Hamburger
+            history={history}
+            hamburger={hamBurgerIsVisible}
+            setHamBurger={setHamBurger}
+          />
+        )}
+      </AnimatePresence>
       <Switch>
         <Route
           exact
@@ -89,4 +99,6 @@ const mapStatetoProps = (state) => {
   };
 };
 
-export default connect(mapStatetoProps, { setHamBurger, loadUser })(App);
+export default connect(mapStatetoProps, { setHamBurger, loadUser })(
+  withRouter(App)
+);
