@@ -37,7 +37,7 @@ const menus = (isAuthenticated) => {
     },
   };
 };
-const Hamburger = ({ isAuthenticated, history, setHamBurger }) => {
+const Hamburger = ({ isAuthenticated, history, setHamBurger, logout }) => {
   const list = menus(isAuthenticated);
 
   const active = useLocation().pathname;
@@ -103,6 +103,7 @@ const Hamburger = ({ isAuthenticated, history, setHamBurger }) => {
           <div className="authentication-status">
             <AuthButton
               onClick={() => {
+                if (isAuthenticated) logout();
                 setHamBurger(false);
                 history.push("/login");
               }}

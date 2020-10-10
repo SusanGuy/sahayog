@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as Icons from "react-feather";
 import AuthInput from "../components/AuthInput";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { login, signup } from "../store/actions/authAction";
 const Button = ({ children }) => {
@@ -49,6 +49,9 @@ const Auth = ({
       console.log(error);
     }
   };
+  if (isAuthenticated) {
+    return <Redirect to={"/"} />;
+  }
   return (
     <div onClick={() => hamburger && setHamBurger(false)} className="Auth">
       <Icons.Menu onClick={() => setHamBurger(true)} />

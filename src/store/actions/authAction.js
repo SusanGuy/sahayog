@@ -48,6 +48,12 @@ export const loadUser = () => {
   };
 };
 
+export const logout = () => {
+  return {
+    type: AUTH_LOGOUT,
+  };
+};
+
 const userLoaded = (token, user) => {
   return {
     type: USER_LOADED,
@@ -65,11 +71,5 @@ const authSuccess = (token) => {
   return {
     type: AUTH_SUCCESS,
     payload: { token },
-  };
-};
-
-const logout = () => {
-  return {
-    type: AUTH_LOGOUT,
   };
 };

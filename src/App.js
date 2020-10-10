@@ -3,7 +3,7 @@ import "./App.scss";
 import { connect } from "react-redux";
 
 import { setAuthToken } from "./utils";
-import { loadUser } from "./store/actions/authAction";
+import { loadUser, logout } from "./store/actions/authAction";
 import Auth from "./containers/Auth";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Campaign from "./containers/Campaign";
@@ -27,6 +27,7 @@ const App = ({
   isAuthenticated,
   hamBurgerIsVisible,
   setHamBurger,
+  logout,
 }) => {
   useEffect(() => {
     loadUser();
@@ -39,6 +40,7 @@ const App = ({
             history={history}
             setHamBurger={setHamBurger}
             isAuthenticated={isAuthenticated}
+            logout={logout}
           />
         )}
       </AnimatePresence>
@@ -119,6 +121,6 @@ const mapStatetoProps = (state) => {
   };
 };
 
-export default connect(mapStatetoProps, { setHamBurger, loadUser })(
+export default connect(mapStatetoProps, { setHamBurger, loadUser, logout })(
   withRouter(App)
 );
