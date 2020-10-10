@@ -154,17 +154,18 @@ const FloatingDiv = ({
         <span className="title">Recent Donors</span>
         <div className="donors">
           {donations &&
-            donations.map((donation, i) => {
-              if (i > 4) return;
-              return (
-                <img
-                  key={donation._id}
-                  src={`http://localhost:8000${donation.user.avatar}`}
-                />
-              );
-            })}
+            donations
+              .filter((donation, index) => index < 5)
+              .map((donation) => {
+                return (
+                  <img
+                    key={donation._id}
+                    src={`http://localhost:8000${donation.user.avatar}`}
+                  />
+                );
+              })}
           {donations && donations.length > 5 && (
-            <div>{donations.length - 5}</div>
+            <div>+{donations.length - 5}</div>
           )}
         </div>
       </div>
@@ -199,7 +200,7 @@ const FloatingDiv = ({
               image={`http://localhost:8000${comment.user.avatar}`}
               name={comment.user.name}
               text={comment.text}
-              date={comment.date}
+              date={moment(comment.date).format("ddd")}
             />
           ))
         )}
@@ -208,12 +209,15 @@ const FloatingDiv = ({
   );
 };
 
-const ButtonContainer = ({ history }) => (
+const ButtonContainer = ({ history, id, target }) => (
   <div className="bottom-buttons">
     <div className="share">
       <Icons.Share />
     </div>
-    <Button onClick={() => history.push("/donate/1?target=5000")} width="23rem">
+    <Button
+      onClick={() => history.push(`/donate/${id}?target=${target}`)}
+      width="23rem"
+    >
       Donate
     </Button>
   </div>
@@ -241,9 +245,6 @@ const Campaign = ({ history }) => {
         });
     } catch (error) {
       history.push("/");
-
-      //   if (mounted) {
-      //   }
     }
 
     return () => {
@@ -283,7 +284,13 @@ const Campaign = ({ history }) => {
         top={top}
         setHeight={handleHeightChange}
       />
-      {<ButtonContainer history={history} />}
+      {
+        <ButtonContainer
+          id={campaign._id}
+          history={history}
+          target={campaign.goal}
+        />
+      }
     </div>
   );
 };
