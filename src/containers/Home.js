@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { withRouter } from "react-router-dom";
 import { ContentLoaderHome } from "../components/ContentLoader";
-import Hamburger from "../components/Hamburger";
+
 import axios from "../axios";
 const hero = [
   {
@@ -29,7 +29,7 @@ const hero = [
   },
 ];
 
-const FundCards = ({ hero, history }) => (
+const FundCards = ({ hero }) => (
   <div className="fundcards">
     {hero.map(({ title, image, daysLeft, raised, goal }) => (
       <div key={title} className="fcard">
@@ -59,18 +59,7 @@ const FundCards = ({ hero, history }) => (
 );
 
 const Home = ({ history, hamburger, hamBurgerIsVisible, setHamBurger }) => {
-  const {
-    location: { pathname },
-  } = history;
   const [scrolled, setScrolled] = useState(false);
-  const [users, setusers] = useState(null);
-  // useEffect(async () => {
-  //   console.log("hero");
-  //   setTimeout(async () => {
-  //     const { data } = await axios.get("/users/");
-  //     setusers(data);
-  //   }, 2000);
-  // }, []);
 
   useEffect(
     (_) => {
@@ -102,22 +91,16 @@ const Home = ({ history, hamburger, hamBurgerIsVisible, setHamBurger }) => {
           }}
         />
       }
-      {users ? (
-        <main>
-          <div
-            className="headers"
-            style={{ marginTop: scrolled ? "10rem" : "" }}
-          >
-            <div className="title">Trending</div>
-            <div className="more">MORE</div>
-          </div>
+      <main>
+        <div className="headers" style={{ marginTop: scrolled ? "10rem" : "" }}>
+          <div className="title">Trending</div>
+          <div className="more">MORE</div>
+        </div>
 
-          <FundCards history={history} hero={hero} />
-          <FundCards history={history} hero={hero} />
-        </main>
-      ) : (
-        <ContentLoaderHome />
-      )}
+        <FundCards history={history} hero={hero} />
+        <FundCards history={history} hero={hero} />
+      </main>
+      )
       <Button
         onClick={() => history.push("/new-campaign")}
         position="fixed"
