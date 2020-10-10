@@ -1,38 +1,45 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React from "react";
 import * as Icons from "react-feather";
 import AuthButton from "./AuthButton";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import "./Hamburger.scss";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { setHamBurger } from "../store/actions/hamburgerAction";
 
-const menus = {
-  HOME: { icon: <Icons.Home />, title: "Home", link: "/" },
-  DONATION: {
-    icon: <Icons.Plus />,
-    title: "My Donations",
-    link: "/my-donations",
-  },
-  CONTRIBUTION: {
-    icon: <Icons.Smile />,
-    title: "My Fundraisers",
-    link: "/my-fundraisers",
-  },
-  FAVORITE: {
-    icon: <Icons.Star />,
-    title: "My Favorites",
-    link: "/my-favorites",
-  },
+const menus = (isAuthenticated) => {
+  if (!isAuthenticated) {
+    return { HOME: { icon: <Icons.Home />, title: "Home", link: "/" } };
+  }
 
-  PROFILE: {
-    icon: <Icons.Headphones />,
-    title: "My Profile",
-    link: "/my-profile",
-  },
+  return {
+    HOME: { icon: <Icons.Home />, title: "Home", link: "/" },
+    DONATION: {
+      icon: <Icons.Plus />,
+      title: "My Donations",
+      link: "/my-donations",
+    },
+
+    CONTRIBUTION: {
+      icon: <Icons.Smile />,
+      title: "My Fundraisers",
+      link: "/my-fundraisers",
+    },
+    FAVORITE: {
+      icon: <Icons.Star />,
+      title: "My Favorites",
+      link: "/my-favorites",
+    },
+
+    PROFILE: {
+      icon: <Icons.Headphones />,
+      title: "My Profile",
+      link: "/my-profile",
+    },
+  };
 };
-const Hamburger = ({ history, hamburger, setHamBurger }) => {
+const Hamburger = ({ isAuthenticated, history, setHamBurger, logout }) => {
+  const list = menus(isAuthenticated);
+
   const active = useLocation().pathname;
 
   return (
@@ -74,8 +81,8 @@ const Hamburger = ({ history, hamburger, setHamBurger }) => {
           transition={{ duration: 0.5 }}
           className="hamburger-items"
         >
-          {Object.keys(menus).map((key) => {
-            const { title, icon, link } = menus[key];
+          {Object.keys(list).map((key) => {
+            const { title, icon, link } = list[key];
             return (
               <div
                 key={link}
@@ -92,9 +99,16 @@ const Hamburger = ({ history, hamburger, setHamBurger }) => {
               </div>
             );
           })}
+
           <div className="authentication-status">
-            <AuthButton onClick={() => history.push("/login")}>
-              Log In/ Signup
+            <AuthButton
+              onClick={() => {
+                if (isAuthenticated) logout();
+                setHamBurger(false);
+                history.push("/login");
+              }}
+            >
+              {isAuthenticated ? "Logout" : "Log In/ Signup"}
             </AuthButton>
           </div>
         </motion.div>
@@ -103,10 +117,4 @@ const Hamburger = ({ history, hamburger, setHamBurger }) => {
   );
 };
 
-const mapStatetoProps = (state) => {
-  return {
-    hamburger: state.hamBurger.hamburger,
-  };
-};
-
-export default connect(mapStatetoProps, { setHamBurger })(Hamburger);
+export default Hamburger;

@@ -1,5 +1,7 @@
 import axios from "../../axios";
+import { setAuthToken } from "../../utils";
 import { USER_LOADED, AUTH_START, AUTH_SUCCESS, AUTH_LOGOUT } from "../type";
+
 export const login = (email, password, history) => {
   return async (dispatch) => {
     try {
@@ -36,12 +38,19 @@ export const signup = (name, email, password, history) => {
 export const loadUser = () => {
   return async (dispatch) => {
     try {
+      setAuthToken(localStorage.token);
       const { data } = await axios.get("/users/me");
       dispatch(userLoaded(localStorage.token, data));
     } catch (err) {
       console.log("oe ma ho hai error");
       console.log(err.response ? err.response.data : err.message);
     }
+  };
+};
+
+export const logout = () => {
+  return {
+    type: AUTH_LOGOUT,
   };
 };
 
@@ -62,11 +71,5 @@ const authSuccess = (token) => {
   return {
     type: AUTH_SUCCESS,
     payload: { token },
-  };
-};
-
-const logout = () => {
-  return {
-    type: AUTH_LOGOUT,
   };
 };

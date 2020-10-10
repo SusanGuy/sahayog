@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import * as Icons from "react-feather";
-import Hamburger from "../components/Hamburger";
-import { motion, AnimatePresence } from "framer-motion";
 
 import axios from "../axios";
 import ContentLoader from "../components/ContentLoader";
@@ -51,9 +49,7 @@ const MyDonations = ({ deleteButton, hamburger, setHamBurger }) => {
         />
         <span>My {deleteButton ? "Favorites" : "Donations"}</span>
       </div>
-      <AnimatePresence initial={false}>
-        {hamburger && <Hamburger handleBurger={setHamBurger} />}
-      </AnimatePresence>
+
       <div className="donations">
         <div className="title">
           <span>{deleteButton ? "Favorites" : "Donations"}</span>

@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.scss";
 import { connect } from "react-redux";
+
 import { setAuthToken } from "./utils";
-import { loadUser } from "./store/actions/authAction";
+import { loadUser, logout } from "./store/actions/authAction";
 import Auth from "./containers/Auth";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Campaign from "./containers/Campaign";
@@ -20,7 +21,14 @@ import { withRouter } from "react-router-dom";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
-const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
+const App = ({
+  history,
+  loadUser,
+  isAuthenticated,
+  hamBurgerIsVisible,
+  setHamBurger,
+  logout,
+}) => {
   useEffect(() => {
     loadUser();
   }, [loadUser]);
@@ -30,8 +38,9 @@ const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
         {hamBurgerIsVisible && (
           <Hamburger
             history={history}
-            hamburger={hamBurgerIsVisible}
             setHamBurger={setHamBurger}
+            isAuthenticated={isAuthenticated}
+            logout={logout}
           />
         )}
       </AnimatePresence>
@@ -50,8 +59,20 @@ const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
         <Route exact path="/campaign/:id" component={Campaign} />
         <PrivateRoute exact path="/donate/:campaignId" component={Donate} />
         <PrivateRoute exact path="/pay/:campaignId" component={Payment} />
-        <Route exact path="/login" component={Auth} />
-        <Route exact path="/signup" component={Auth} />
+        <Route
+          exact
+          path="/login"
+          component={() => (
+            <Auth hamburger={hamBurgerIsVisible} setHamBurger={setHamBurger} />
+          )}
+        />
+        <Route
+          exact
+          path="/signup"
+          component={() => (
+            <Auth hamburger={hamBurgerIsVisible} setHamBurger={setHamBurger} />
+          )}
+        />
         <PrivateRoute
           exact
           path="/my-fundraisers"
@@ -96,9 +117,10 @@ const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
 const mapStatetoProps = (state) => {
   return {
     hamBurgerIsVisible: state.hamBurger.hamBurgerIsVisible,
+    isAuthenticated: state.auth.user != null,
   };
 };
 
-export default connect(mapStatetoProps, { setHamBurger, loadUser })(
+export default connect(mapStatetoProps, { setHamBurger, loadUser, logout })(
   withRouter(App)
 );
