@@ -3,12 +3,21 @@ import { connect } from "react-redux";
 import * as Icons from "react-feather";
 import AuthInput from "../components/AuthInput";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { login, signup } from "../store/actions/authAction";
 const Button = ({ children }) => {
   return <button className="auth-main-button">{children}</button>;
 };
 
-const Auth = ({ login, signup, loading, isAuthenticated, history }) => {
+const Auth = ({
+  login,
+  signup,
+  loading,
+  isAuthenticated,
+  hamburger,
+  setHamBurger,
+  history,
+}) => {
   const isLogin = history.location.pathname === "/login";
 
   let [state, setState] = useState({
@@ -35,14 +44,14 @@ const Auth = ({ login, signup, loading, isAuthenticated, history }) => {
         return login(email, password, history);
       }
 
-      signup(email, password, history);
+      signup(name, email, password, history);
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className="Auth">
-      <Icons.Menu />
+    <div onClick={() => hamburger && setHamBurger(false)} className="Auth">
+      <Icons.Menu onClick={() => setHamBurger(true)} />
 
       <div className="main-header">
         <h1>{isLogin ? "Welcome" : "Create account"},</h1>
@@ -105,4 +114,4 @@ const mapStatetoProps = (state) => {
     isAuthenticated: state.auth.token !== null,
   };
 };
-export default connect(mapStatetoProps, { login, signup })(Auth);
+export default connect(mapStatetoProps, { login, signup })(withRouter(Auth));

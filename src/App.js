@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.scss";
 import { connect } from "react-redux";
+
 import { setAuthToken } from "./utils";
 import { loadUser } from "./store/actions/authAction";
 import Auth from "./containers/Auth";
@@ -50,8 +51,20 @@ const App = ({ history, loadUser, hamBurgerIsVisible, setHamBurger }) => {
         <Route exact path="/campaign/:id" component={Campaign} />
         <PrivateRoute exact path="/donate/:campaignId" component={Donate} />
         <PrivateRoute exact path="/pay/:campaignId" component={Payment} />
-        <Route exact path="/login" component={Auth} />
-        <Route exact path="/signup" component={Auth} />
+        <Route
+          exact
+          path="/login"
+          component={() => (
+            <Auth hamburger={hamBurgerIsVisible} setHamBurger={setHamBurger} />
+          )}
+        />
+        <Route
+          exact
+          path="/signup"
+          component={() => (
+            <Auth hamburger={hamBurgerIsVisible} setHamBurger={setHamBurger} />
+          )}
+        />
         <PrivateRoute
           exact
           path="/my-fundraisers"

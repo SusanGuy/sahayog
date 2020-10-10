@@ -32,11 +32,7 @@ const hero = [
 const FundCards = ({ hero, history }) => (
   <div className="fundcards">
     {hero.map(({ title, image, daysLeft, raised, goal }) => (
-      <div
-        key={title}
-        className="fcard"
-        onClick={() => history.push("/campaign/1")}
-      >
+      <div key={title} className="fcard">
         <div className="top">
           <img src={image} />
           <div className="img-comp">
@@ -62,7 +58,7 @@ const FundCards = ({ hero, history }) => (
   </div>
 );
 
-const Home = ({ history, hamBurgerIsVisible, setHamBurger }) => {
+const Home = ({ history, hamburger, hamBurgerIsVisible, setHamBurger }) => {
   const {
     location: { pathname },
   } = history;
@@ -96,7 +92,7 @@ const Home = ({ history, hamBurgerIsVisible, setHamBurger }) => {
     [hamBurgerIsVisible]
   );
   return (
-    <div className="Home">
+    <div onClick={() => hamburger && setHamBurger(false)} className="Home">
       <AnimatePresence initial={false}></AnimatePresence>
       {
         <Nav

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import HamburgerButton from "../components/HamburgerButton";
-import Hamburger from "../components/Hamburger";
-import { motion, AnimatePresence } from "framer-motion";
 import moment from "moment";
 import Slider from "../components/Slider";
 import axios from "../axios";
@@ -73,9 +71,7 @@ const MyFundraiser = ({ hamburger, setHamBurger }) => {
       onClick={hamburger ? () => setHamBurger(false) : () => {}}
     >
       <HamburgerButton setHamBurger={setHamBurger} title="My Fundraisers" />
-      <AnimatePresence initial={false}>
-        {hamburger && <Hamburger handleBurger={setHamBurger} />}
-      </AnimatePresence>
+
       <div className="title">
         <span>Fundraisers</span>
       </div>
