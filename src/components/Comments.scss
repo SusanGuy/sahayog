@@ -7,10 +7,9 @@ $placeholder-gray: #b2b1b4;
   flex-direction: column;
   justify-content: space-between;
 
-
   .comment-card {
     &:last-child {
-      margin-bottom: 12rem;
+      margin-bottom: 2rem;
     }
 
     background-color: #ecf0f4;
@@ -44,7 +43,7 @@ $placeholder-gray: #b2b1b4;
 
     .comment {
       color: black;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
     }
   }
 }

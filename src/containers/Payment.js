@@ -47,9 +47,11 @@ const Payment = ({ history }) => {
     productUrl: "https://susansubedi.com",
     eventHandler: {
       onSuccess(payload) {
+        console.log("Works");
         console.log(payload);
       },
       onError(error) {
+        console.log("Nah");
         console.log(error);
       },
     },
@@ -61,7 +63,7 @@ const Payment = ({ history }) => {
     switch (active) {
       case 0:
         checkout.show({
-          amount,
+          amount: 10,
         });
         break;
       case 1:
