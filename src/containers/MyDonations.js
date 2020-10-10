@@ -34,19 +34,35 @@ const MyDonations = ({ deleteButton, hamburger, setHamBurger, history }) => {
           });
       }
       if (deleteButton) {
-        axios.get("users/favorites").then((data) => {
-          if (mounted) {
-            setdonations(data.data);
-            setloading(false);
-          }
-        });
+        axios
+          .get("users/favorites")
+          .then((data) => {
+            if (mounted) {
+              setdonations(data.data);
+              setloading(false);
+            }
+          })
+          .catch((err) => {
+            if (mounted) {
+              setdonations([]);
+              setloading(false);
+            }
+          });
       } else {
-        axios.get("users/me/donations/").then((data) => {
-          if (mounted) {
-            setdonations(data.data);
-            setloading(false);
-          }
-        });
+        axios
+          .get("users/me/donations/")
+          .then((data) => {
+            if (mounted) {
+              setdonations(data.data);
+              setloading(false);
+            }
+          })
+          .catch((err) => {
+            if (mounted) {
+              setdonations([]);
+              setloading(false);
+            }
+          });
       }
     } catch (e) {
       if (mounted) {

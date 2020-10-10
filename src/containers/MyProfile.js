@@ -10,11 +10,14 @@ const MyProfile = ({ history, hamburger, setHamBurger, logout, user }) => {
 
   useEffect(() => {
     let mounted = true;
-    axios.get("/users/me/donations").then(({ data }) => {
-      if (mounted) {
-        setDonation(data.length);
-      }
-    });
+    axios
+      .get("/users/me/donations")
+      .then(({ data }) => {
+        if (mounted) {
+          setDonation(data.length);
+        }
+      })
+      .catch((err) => setDonation(0));
     return () => {
       mounted = false;
     };
@@ -31,8 +34,6 @@ const MyProfile = ({ history, hamburger, setHamBurger, logout, user }) => {
       setAvatar(avat.data);
     } catch (error) {}
   };
-
-  console.log(avatar);
 
   return (
     user && (
