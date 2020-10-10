@@ -102,7 +102,6 @@ const FloatingDiv = ({
     if (
       creator &&
       creator.favorites.find(({ cause }) => {
-        console.log(cause, id);
         return cause.toString() === id.toString();
       })
     ) {
