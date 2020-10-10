@@ -8,10 +8,7 @@ $placeholder-gray: #b2b1b4;
   justify-content: space-between;
 
   .comment-card {
-    &:last-child {
-      margin-bottom: 12rem;
-    }
-
+    height: auto;
     background-color: #ecf0f4;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius: 1rem;
@@ -45,7 +42,6 @@ $placeholder-gray: #b2b1b4;
     .comment {
       color: black;
       font-size: 1.5rem;
-      margin: 2rem;
     }
   }
 }
