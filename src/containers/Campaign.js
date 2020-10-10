@@ -10,12 +10,6 @@ import BackButton from "../components/BackButton";
 import Comment from "../components/Comments";
 import axios from "../axios";
 const ImageDiv = ({ imageURLArray, height, setTop, setActive, history }) => {
-  const IMG_1 = `https://unsplash.it/342/249`;
-  const IMG_2 = `https://unsplash.it/342/250`;
-  const IMG_3 = `https://unsplash.it/342/251`;
-  const IMG_4 = `https://unsplash.it/342/252`;
-  const IMG_5 = `https://unsplash.it/342/253`;
-  const IMAGES = [IMG_1, IMG_2, IMG_3, IMG_4, IMG_5];
   const RIGHT = "-1";
   const LEFT = "+1";
 
@@ -27,10 +21,10 @@ const ImageDiv = ({ imageURLArray, height, setTop, setActive, history }) => {
     const change = direction === RIGHT ? RIGHT : LEFT;
     const adjustedIdx = imageIdx + Number(change);
     let newIdx;
-    if (adjustedIdx >= IMAGES.length) {
+    if (adjustedIdx >= imageURLArray.length) {
       newIdx = 0;
     } else if (adjustedIdx < 0) {
-      newIdx = IMAGES.length - 1;
+      newIdx = imageURLArray.length - 1;
     } else {
       newIdx = adjustedIdx;
     }
@@ -40,9 +34,9 @@ const ImageDiv = ({ imageURLArray, height, setTop, setActive, history }) => {
   const imageStyle = () => {
     return imageURLArray
       ? {
-          backgroundImage: `url(http://localhost:8000${imageURLArray[0].image})`,
+          backgroundImage: `url(http://localhost:8000${imageURLArray[imageIdx].image})`,
         }
-      : { backgroundImage: `url(${IMAGES[imageIdx]})` };
+      : { backgroundImage: `url(https://unsplash.it/342/249)` };
   };
 
   return (
@@ -185,7 +179,7 @@ const FloatingDiv = ({
           <span className="grey-out">{comments && comments.length}</span>
         </span>
       </div>
-      {console.log(comments)}
+
       <div className="main-content">
         {content == 1 ? (
           <StoryDescription
