@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useCallback } from "react";
 import "./App.scss";
 import { connect } from "react-redux";
 
@@ -33,6 +33,7 @@ const App = ({
   useEffect(() => {
     loadUser();
   }, [loadUser]);
+
   return (
     <Fragment>
       <AnimatePresence initial={false}>

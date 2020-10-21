@@ -42,13 +42,12 @@ const Payment = ({ history }) => {
 
   const config = {
     publicKey: "test_public_key_5535b5e015834104bdd1b24d62e2ec02",
-    productIdentity: "Test Product",
-    productName: "Dragon",
+    productIdentity: "Donation",
+    productName: "Donation",
     productUrl: "https://susansubedi.com",
     eventHandler: {
       onSuccess(payload) {
-        console.log("Works");
-        console.log(payload);
+        history.push(`/my-donations/?amount=${amount}&campaign=${campaignId}`);
       },
       onError(error) {
         console.log("Nah");

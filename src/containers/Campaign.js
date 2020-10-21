@@ -149,10 +149,8 @@ const FloatingDiv = ({
           Organized by <span className="name">{creator && creator.name}</span>
         </span>
         <span className="date">
-          <span className="day">
-            {moment(endDate).diff(moment.now(), "days")}
-          </span>
-          days left
+          <span className="day">{moment(endDate).fromNow(true)}</span>
+          left
         </span>
       </div>
       <Slider goal={goal} raised={raisedMoney < goal ? raisedMoney : goal} />
